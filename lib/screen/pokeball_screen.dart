@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon/widgets/pokeballWidget.dart';
+import 'package:hackathon/widgets/pokeball_widget.dart';
 
 class PokeballScreen extends StatefulWidget {
   const PokeballScreen({Key? key}) : super(key: key);
