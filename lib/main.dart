@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon/pokemon_at_stop/domain/Pokemon.dart';
 import 'package:hackathon/screen/pokeballScreen.dart';
+import 'package:hackathon/screen/pokemonRewarded.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const PokeballScreen(),
+      home: PokemonRewardedScreen(pokemon: Pokemon("Milobellus", 46, pictureUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/350.png"),),
     );
   }
 }
