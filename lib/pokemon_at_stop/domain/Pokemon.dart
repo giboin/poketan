@@ -1,7 +1,7 @@
 class Pokemon{
   String name;
-  String? pictureUrl;
+  String pictureUrl;
   int level;
 
-  Pokemon(this.name, this.level,{this.pictureUrl});
+  Pokemon({required this.name, required this.level, required this.pictureUrl});
 }
