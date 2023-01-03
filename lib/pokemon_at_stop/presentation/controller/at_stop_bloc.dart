@@ -8,7 +8,7 @@ part 'at_stop_state.dart';
 
 class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
   AtStopBloc()
-      : super(AtStopInitialState(stopId: "", pokelist: [
+      : super(AtStopInitialState(stopName: "", pokelist: [
           Pokemon(
               name: "Salamouche",
               level: 2,

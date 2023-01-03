@@ -7,9 +7,9 @@ abstract class AtStopState extends Equatable {
   List<Object> get props => [];
 }
 
-
-class AtStopInitialState extends AtStopState{
+class AtStopInitialState extends AtStopState {
   final List<Pokemon> pokelist;
-  final String stopId;
-  const AtStopInitialState({required this.pokelist, required this.stopId});
+  final String stopName;
+
+  const AtStopInitialState({required this.pokelist, required this.stopName});
 }
