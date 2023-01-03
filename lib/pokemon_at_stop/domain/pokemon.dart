@@ -14,10 +14,10 @@ class Pokemon {
   String toJson() {
     return '{'
         '"pokemon": {'
-            '"name": "$name",'
-            '"pictureUrl": "$pictureUrl",'
-            '"level": "$level",'
-            '"pokedexId": "$pokedexId"'
+          '"name": "$name",'
+          '"pictureUrl": "$pictureUrl",'
+          '"level": "$level",'
+          '"pokedexId": "$pokedexId"'
         '}'
     '}';
   }

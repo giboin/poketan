@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
-import 'package:hackathon/pokemon_at_stop/presentation/pokemons_at_stop.dart';
+import 'package:hackathon/pokemon_at_stop/presentation/at_stop_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const PokemonsAtStopScreen(),
+          home: const AtStopView(),
         ));
   }
 }
