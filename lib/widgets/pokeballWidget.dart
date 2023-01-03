@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:math' as math;
-
-import 'package:hackathon/widgets/semiCircle.dart';
 
 class PokeballWidget extends StatelessWidget {
   final bool isColored;
