@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon/pokeballScreen.dart';
+import 'package:hackathon/screen/pokeballScreen.dart';
 
 void main() {
   runApp(const MyApp());

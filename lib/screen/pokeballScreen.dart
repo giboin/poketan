@@ -15,7 +15,7 @@ class _PokeballScreenState extends State<PokeballScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: const Text('Pokemon'),centerTitle: true,),
-        body: PokeballWidget(diameter: 300,),
+        body: const PokeballWidget(isColored: false,),
       ),
     );
   }
