@@ -15,6 +15,7 @@ jobs:
       - name: Build apk
         run: |
           flutter pub get
+          flutter analyze
           flutter test
           flutter build apk --debug
   build-web:
@@ -28,6 +29,7 @@ jobs:
       - name: Build web
         run: |
           flutter pub get
+          flutter analyze
           flutter test
           flutter build web
       - name: Deploy web
