@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon/pokeballScreen.dart';
+import 'package:hackathon/pokemon_at_stop/presentation/pokemonsAtStop.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const PokeballScreen(),
+      home: PokemonsAtStopScreen(stopId: "",),
     );
   }
 }
