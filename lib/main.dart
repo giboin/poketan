@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
-import 'package:hackathon/pokemon_at_stop/presentation/pokemonsAtStop.dart';
-
+import 'package:hackathon/pokemon_at_stop/presentation/pokemons_at_stop.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<AtStopBloc>(
-              lazy: false, create: (context) => AtStopBloc()
-          ),
+              lazy: false, create: (context) => AtStopBloc()),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
@@ -27,7 +25,6 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           home: PokemonsAtStopScreen(),
-        )
-    );
+        ));
   }
 }
