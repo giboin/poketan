@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class Pokemon {
   String name;
   String pictureUrl;
@@ -14,12 +16,11 @@ class Pokemon {
   String toJson() {
     return '{'
         '"pokemon": {'
-          '"name": "$name",'
-          '"pictureUrl": "$pictureUrl",'
-          '"level": "$level",'
-          '"pokedexId": "$pokedexId"'
+        '"name": "$name",'
+        '"pictureUrl": "$pictureUrl",'
+        '"level": "$level",'
+        '"pokedexId": "$pokedexId"'
         '}'
-    '}';
+        '}';
   }
-
 }

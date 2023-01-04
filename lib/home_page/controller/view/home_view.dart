@@ -25,10 +25,9 @@ class HomeView extends StatelessWidget {
               body: GestureDetector(
                 onTap: state.nearAStop
                     ? () {
-                        print("button enabled");
                         context.read<HomeBloc>().add(FindPokemon());
                       }
-                    : () => print("button disabled"),
+                    : () => {},
                 child: PokeballWidget(
                   isColored: state.nearAStop,
                 ),

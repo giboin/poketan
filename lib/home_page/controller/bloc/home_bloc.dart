@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'dart:convert';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -45,7 +45,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   @override
   Future<void> close() {
-    // TODO: implement close
     localisationLoop.cancel();
     return super.close();
   }
