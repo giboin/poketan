@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:geolocator/geolocator.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -19,8 +21,29 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         )) {
     on<SendLocalisation>((event, emit) async {
       // get the user localisation
-      double lat = 47.22024715;
-      double long = -1.60339908;
+      LocationPermission permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          if (kDebugMode) {
+            print('Location permissions are denied');
+          }
+        } else if (permission == LocationPermission.deniedForever) {
+          if (kDebugMode) {
+            print("'Location permissions are permanently denied");
+          }
+        }
+      }
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      if (kDebugMode) {
+        print(position.longitude);
+        print(position.latitude);
+      } //Output: -1.521223
+       //Output: 47.2828964
+
+      double long = position.longitude;
+      double lat = position.latitude;
 
       // send the localisation of the user to the server
       Response res =
