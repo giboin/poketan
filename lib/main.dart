@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
+import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/pokemons_at_stop.dart';
 
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider<HomeBloc>(create: ((context) => HomeBloc())),
           BlocProvider<AtStopBloc>(
               lazy: false, create: (context) => AtStopBloc()),
         ],
@@ -24,7 +27,10 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: PokemonsAtStopScreen(),
+          routes: {
+            '/': (context) => const HomeView(),
+            'pokemon_at_stop': (context) => PokemonsAtStopScreen(),
+          },
         ));
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
-import 'package:hackathon/screen/pokeball_screen.dart';
 
 class PokemonRewardedScreen extends StatefulWidget {
   final Pokemon pokemon;
@@ -25,8 +25,7 @@ class _PokemonRewardedScreenState extends State<PokemonRewardedScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const PokeballScreen()),
+                  MaterialPageRoute(builder: (context) => const HomeView()),
                 );
               },
               child: const Icon(
