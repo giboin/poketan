@@ -23,11 +23,11 @@ class HomeView extends StatelessWidget {
                 centerTitle: true,
               ),
               body: GestureDetector(
-                onTap: state.nearAStop
-                    ? () {
-                        context.read<HomeBloc>().add(FindPokemon());
-                      }
-                    : () => {},
+                onTap:(){
+                  if(state.nearAStop) {
+                    context.read<HomeBloc>().add(FindPokemon());
+                  }
+                },
                 child: PokeballWidget(
                   isColored: state.nearAStop,
                 ),

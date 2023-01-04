@@ -21,6 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         )) {
     on<SendLocalisation>((event, emit) async {
       // get the user localisation
+      // source : https://www.fluttercampus.com/guide/212/get-gps-location/
       LocationPermission permission = await Geolocator.checkPermission();
 
       if (permission == LocationPermission.denied) {
@@ -51,7 +52,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       // parse this json
       Map<String, dynamic> json = jsonDecode(res.body);
-      emit(HomeInitial(nearAStop: true, responseJson: json));
+      emit(HomeInitial(nearAStop: json["stop_name"]!="too_far", responseJson: json));
     });
 
     on<FindPokemon>((event, emit) {
