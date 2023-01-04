@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
@@ -48,7 +47,7 @@ class _PokemonRewardedScreenState extends State<PokemonRewardedScreen> {
                 height: 30,
               ),
               Image.network(
-                '${widget.pokemon.pictureUrl}',
+                widget.pokemon.pictureUrl,
                 scale: 0.5,
               ),
               const SizedBox(

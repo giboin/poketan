@@ -10,6 +10,7 @@ abstract class AtStopState extends Equatable {
 class AtStopInitialState extends AtStopState {
   final List<Pokemon> pokelist;
   final String stopName;
+  final Pokemon wildPokemon;
 
-  const AtStopInitialState({required this.pokelist, required this.stopName});
+  const AtStopInitialState({required this.pokelist, required this.stopName, required this.wildPokemon});
 }

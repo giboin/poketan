@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
-import 'package:hackathon/pokemon_at_stop/presentation/pokemons_at_stop.dart';
+import 'package:hackathon/pokemon_at_stop/presentation/at_stop_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             '/': (context) => const HomeView(),
-            'pokemon_at_stop': (context) => PokemonsAtStopScreen(),
+            'pokemon_at_stop': (context) => const PokemonsAtStopView(),
           },
         ));
   }
