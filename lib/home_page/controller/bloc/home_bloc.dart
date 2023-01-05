@@ -36,12 +36,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           }
         }
       }
-      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
       if (kDebugMode) {
-        print(position.longitude);
-        print(position.latitude);
-      } //Output: -1.521223
-       //Output: 47.2828964
+        print(position.longitude);//Output: -1.521223
+        print(position.latitude);//Output: 47.2828964
+      }
+
 
       double long = position.longitude;
       double lat = position.latitude;
@@ -49,7 +49,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       // send the localisation of the user to the server
       Response res =
           await http.get(Uri.parse('$serverUrl/localisation/$lat/$long'));
-
+      print(res.body);
       // parse this json
       Map<String, dynamic> json = jsonDecode(res.body);
       emit(HomeInitial(nearAStop: json["stop_name"]!="too_far", responseJson: json));
