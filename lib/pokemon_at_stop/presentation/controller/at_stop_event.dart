@@ -6,3 +6,12 @@ abstract class AtStopEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class ChoosePokemon extends AtStopEvent {
+  final Pokemon pokemon;
+
+  const ChoosePokemon({required this.pokemon});
+
+  @override
+  List<Object> get props => [pokemon];
+}

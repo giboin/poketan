@@ -47,7 +47,11 @@ class PokemonsAtStopView extends StatelessWidget {
                               title: Text(
                                   "${pokemon.name}, niveau ${pokemon.level}"),
                               trailing: Image.network(pokemon.pictureUrl),
-                              onTap: () {},
+                              onTap: () {
+                                context
+                                    .read<AtStopBloc>()
+                                    .add(ChoosePokemon(pokemon: pokemon));
+                              },
                             ),
                           );
                         }),
@@ -55,8 +59,15 @@ class PokemonsAtStopView extends StatelessWidget {
                 ],
               )),
         ));
+      }
+      if (state is FightFinished) {
+        return Scaffold(
+          body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text(state.winner)]),
+        );
       } else {
-        return const Text('bad state');
+        return const Text('this is not exactly the ideal state');
       }
     });
   }
