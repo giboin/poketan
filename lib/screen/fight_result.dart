@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 
-class PokemonRewardedScreen extends StatefulWidget {
+class FightResultScreen extends StatefulWidget {
   final Pokemon pokemon;
+  final String winnerText;
 
-  const PokemonRewardedScreen({Key? key, required this.pokemon})
+  const FightResultScreen(
+      {Key? key, required this.pokemon, required this.winnerText})
       : super(key: key);
 
   @override
-  State<PokemonRewardedScreen> createState() => _PokemonRewardedScreenState();
+  State<FightResultScreen> createState() => _FightResultScreenState();
 }
 
-class _PokemonRewardedScreenState extends State<PokemonRewardedScreen> {
+class _FightResultScreenState extends State<FightResultScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,10 +41,7 @@ class _PokemonRewardedScreenState extends State<PokemonRewardedScreen> {
               const SizedBox(
                 height: 150,
               ),
-              const Text(
-                "You have win",
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-              ),
+              Text(widget.winnerText),
               const SizedBox(
                 height: 30,
               ),

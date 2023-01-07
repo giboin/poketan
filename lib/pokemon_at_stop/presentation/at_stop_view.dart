@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
+import 'package:hackathon/screen/fight_result.dart';
 
 import 'controller/at_stop_bloc.dart';
 
@@ -61,11 +62,12 @@ class PokemonsAtStopView extends StatelessWidget {
         ));
       }
       if (state is FightFinished) {
-        return Scaffold(
-          body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text(state.winner)]),
-        );
+        if (state.winner) {
+          return FightResultScreen(
+              pokemon: state.chosenPokemon, winnerText: "you just won");
+        }
+        return FightResultScreen(
+            pokemon: state.wildPokemon, winnerText: "you just lost");
       } else {
         return const Text('this is not exactly the ideal state');
       }

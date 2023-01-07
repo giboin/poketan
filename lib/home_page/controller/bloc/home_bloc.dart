@@ -74,5 +74,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 }
 
+
+
 /*      Pokemon wildPokemon = Pokemon.from_json(json['pokemon_data']);
       String stopName = json['stop_name'];*/

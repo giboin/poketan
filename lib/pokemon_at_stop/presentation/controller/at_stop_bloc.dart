@@ -57,11 +57,13 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
           '$serverUrl/fight/${event.pokemon.name}/${event.pokemon.level}/${state.wildPokemon.name}/${state.wildPokemon.level}'));
       // parse this json
       Map<String, dynamic> json = jsonDecode(res.body);
+      bool winnerBool = json["final_state"] == "you win";
       emit(FightFinished(
           pokelist: state.pokelist,
           stopName: state.stopName,
           wildPokemon: state.wildPokemon,
-          winner: json["final_state"]));
+          chosenPokemon: event.pokemon,
+          winner: winnerBool));
     });
   }
 }
