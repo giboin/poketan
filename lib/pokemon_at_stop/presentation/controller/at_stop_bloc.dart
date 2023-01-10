@@ -110,7 +110,7 @@ class AtStopBloc extends HydratedBloc<AtStopEvent, AtStopState> {
   @override
   Map<String, dynamic>? toJson(AtStopState state) {
     return {
-      'pokelist': state.pokelist.map((e) => e.toJson()),
+      'pokelist': (state.pokelist.map((e) => e.toJson()).toList()),
     };
   }
 }

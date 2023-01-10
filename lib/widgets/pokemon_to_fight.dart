@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
-import '../pokemon_at_stop/domain/pokemon.dart';
+import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 
 class FightDialog extends StatefulWidget {
   final AtStopState atStopState;
@@ -20,13 +20,29 @@ class _FightDialogState extends State<FightDialog> {
       height: MediaQuery.of(context).size.height,
       child: AlertDialog(
         insetPadding: const EdgeInsets.all(0),
-        icon: const Icon(Icons.bolt_sharp, size: 50.0, color: Colors.amber,),
-        title: Text('${widget.atStopState.wildPokemon.name} - level ${widget.atStopState.wildPokemon.level}', style: const TextStyle(fontSize: 25.0),),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 30.0),
+        icon: const Icon(
+          Icons.bolt_sharp,
+          size: 50.0,
+          color: Colors.amber,
+        ),
+        title: Text(
+          '${widget.atStopState.wildPokemon.name} - level ${widget.atStopState.wildPokemon.level}',
+          style: const TextStyle(fontSize: 25.0),
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 0, vertical: 30.0),
         content: Column(
           children: [
-            const Text('Avec qui vaincre ce pokémon ?', style: TextStyle(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic, fontSize: 15.0),),
-            const SizedBox(height: 20.0,),
+            const Text(
+              'Avec qui vaincre ce pokémon ?',
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 15.0),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
             Expanded(
               child: Container(
                 width: 600.0,
@@ -41,7 +57,10 @@ class _FightDialogState extends State<FightDialog> {
                           color: Colors.yellow,
                           child: ListTile(
                             title: Text(
-                                "${pokemon.name}, niveau ${pokemon.level}", style: const TextStyle(fontWeight: FontWeight.w500),),
+                              "${pokemon.name}, niveau ${pokemon.level}",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500),
+                            ),
                             trailing: Image.network(pokemon.pictureUrl),
                             onTap: () {
                               context

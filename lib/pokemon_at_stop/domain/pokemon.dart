@@ -1,4 +1,3 @@
-
 class Pokemon {
   String name;
   String pictureUrl;

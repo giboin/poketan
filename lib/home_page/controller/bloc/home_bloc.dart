@@ -39,8 +39,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
       if (kDebugMode) {
-        print(position.longitude); //Output: -1.521223
-        print(position.latitude); //Output: 47.2828964
+        print(position.longitude);
+        print(position.latitude);
       }
 
       double long = position.longitude;
@@ -56,13 +56,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 
     on<FindPokemon>((event, emit) {
-      // if (state.responseJson == null) {}
       // go to the fighting screen
       emit(HomeFoundPokemon(responseJson: state.responseJson!));
     });
 
-    localisationLoop =
-        Stream.periodic(const Duration(seconds: 3)).listen((event) {
+    add(SendLocalisation());
+    localisationLoop = Stream.periodic(const Duration(seconds: 10)).listen((_) {
       add(SendLocalisation());
     });
   }
