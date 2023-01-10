@@ -12,9 +12,7 @@ jobs:
         with:
           flutter-version: '3.3.10'
           channel: stable
-      - name: Build apk
-        run: |
-          flutter pub get
-          flutter analyze
-          flutter test
-          flutter build apk --debug
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - run: flutter build apk --debug
