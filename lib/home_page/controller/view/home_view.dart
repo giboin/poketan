@@ -24,7 +24,8 @@ class HomeView extends StatelessWidget {
                 child: FloatingActionButton(
                   backgroundColor: Colors.transparent,
                   child: Image.asset("assets/backpack.png"),
-                  onPressed: (){
+                  onPressed: () {
+                    // TODO: Changer ça avec BLoC (add un event, push un state, push la navigationa avec le listener)
                     Navigator.of(context).pushNamed('owned_pokemons');
                   },
                 ),
@@ -37,8 +38,8 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 child: GestureDetector(
-                  onTap:(){
-                    if(state.nearAStop) {
+                  onTap: () {
+                    if (state.nearAStop) {
                       context.read<HomeBloc>().add(FindPokemon());
                     }
                   },
@@ -50,6 +51,7 @@ class HomeView extends StatelessWidget {
             ),
           );
         } else {
+          // TODO: à la place de ça qui bloque l'appli, on devrait ajouter un event pour retourner sur l'état initial.
           return const Text("Loading");
         }
       },

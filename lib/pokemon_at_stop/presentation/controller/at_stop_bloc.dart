@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hackathon/pokemon_at_stop/domain/adapters/stop.dart';
 
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:http/http.dart' as http;
@@ -11,10 +12,12 @@ part 'at_stop_state.dart';
 
 class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
   final String serverUrl = "https://hackathon-server.osc-fr1.scalingo.io/";
+  final Stop stop;
 
-  AtStopBloc()
-      : super(AtStopInitialState(
-            stopName: "Chantrerie - Grandes Ecoles",
+  AtStopBloc({
+    required this.stop,
+  }) : super(AtStopInitialState(
+            stopName: stop.name,
             wildPokemon: Pokemon(
                 name: "Ecremeuh",
                 level: 20,

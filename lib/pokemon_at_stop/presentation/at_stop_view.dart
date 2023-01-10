@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hackathon/screen/fight_result.dart';
 import 'package:hackathon/widgets/pokemon_to_fight.dart';
 
-import 'controller/at_stop_bloc.dart';
+import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
 class PokemonsAtStopView extends StatelessWidget {
   const PokemonsAtStopView({
@@ -23,10 +23,11 @@ class PokemonsAtStopView extends StatelessWidget {
               title: Text(
                 state.stopName,
                 style: const TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white),
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                ),
               ),
               centerTitle: true,
               backgroundColor: Colors.green,
@@ -85,10 +86,15 @@ class PokemonsAtStopView extends StatelessWidget {
               child: FittedBox(
                 child: FloatingActionButton(
                   onPressed: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => FightDialog(atStopState: state,)),
+                      context: context,
+                      builder: (BuildContext context) => FightDialog(
+                            atStopState: state,
+                          )),
                   backgroundColor: Colors.red,
-                  child: const Icon(Icons.bolt_sharp, size: 35,),
+                  child: const Icon(
+                    Icons.bolt_sharp,
+                    size: 35,
+                  ),
                 ),
               ),
             ),
