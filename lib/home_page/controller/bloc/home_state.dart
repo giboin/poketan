@@ -19,6 +19,9 @@ class HomeInitial extends HomeState {
     super.responseJson,
   });
 
+
+
+
   @override
   List<Object> get props => [
         responseJson ?? {},

@@ -18,6 +18,17 @@ class HomeView extends StatelessWidget {
         if (state is HomeInitial) {
           return SafeArea(
             child: Scaffold(
+              floatingActionButton: SizedBox(
+                height: 80,
+                width: 80,
+                child: FloatingActionButton(
+                  backgroundColor: Colors.transparent,
+                  child: Image.asset("assets/backpack.png"),
+                  onPressed: (){
+                    Navigator.of(context).pushNamed('owned_pokemons');
+                  },
+                ),
+              ),
               body: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
