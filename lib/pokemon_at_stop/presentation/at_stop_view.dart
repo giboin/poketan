@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hackathon/screen/fight_result.dart';
+import 'package:hackathon/widgets/pokemon_to_fight.dart';
 
 import 'controller/at_stop_bloc.dart';
 
@@ -17,57 +18,86 @@ class PokemonsAtStopView extends StatelessWidget {
     }, builder: (context, state) {
       if (state is AtStopInitialState) {
         return SafeArea(
-            child: Scaffold(
-          appBar: AppBar(
-            title: Text('Arrêt ${state.stopName}'),
-            centerTitle: true,
-          ),
-          body: Padding(
-              padding: const EdgeInsets.all(20.0),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                state.stopName,
+                style: const TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white),
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.green,
+            ),
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/arrêt_tram_nantes.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Un pokemon sauvage apparait!"),
-                  SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: Image.network(state.wildPokemon.pictureUrl),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 50.0),
+                    child: Stack(children: [
+                      Opacity(
+                          opacity: 0.6,
+                          child:
+                              SvgPicture.asset('assets/pokeball-grisee.svg')),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 100.0),
+                        child: Image.network(
+                          state.wildPokemon.pictureUrl,
+                          scale: 0.2,
+                        ),
+                      ),
+                    ]),
                   ),
-                  Text(
-                      "${state.wildPokemon.name}, niveau ${state.wildPokemon.level}"),
-                  const Padding(
-                    padding: EdgeInsets.all(20.0),
-                  ),
-                  const Text("Avec qui voulez vous lui péter la gueule?"),
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: state.pokelist.length,
-                        itemBuilder: (context, index) {
-                          Pokemon pokemon = state.pokelist[index];
-                          return Card(
-                            child: ListTile(
-                              title: Text(
-                                  "${pokemon.name}, niveau ${pokemon.level}"),
-                              trailing: Image.network(pokemon.pictureUrl),
-                              onTap: () {
-                                context
-                                    .read<AtStopBloc>()
-                                    .add(ChoosePokemon(pokemon: pokemon));
-                              },
-                            ),
-                          );
-                        }),
-                  ),
+
+                  /*Expanded(
+                  child: ListView.builder(
+                      itemCount: state.pokelist.length,
+                      itemBuilder: (context, index) {
+                        Pokemon pokemon = state.pokelist[index];
+                        return Card(
+                          child: ListTile(
+                            title: Text(
+                                "${pokemon.name}, niveau ${pokemon.level}"),
+                            trailing: Image.network(pokemon.pictureUrl),
+                            onTap: () {
+                              context
+                                  .read<AtStopBloc>()
+                                  .add(ChoosePokemon(pokemon: pokemon));
+                            },
+                          ),
+                        );
+                      }),
+                ),*/
                 ],
-              )),
-        ));
+              ),
+            ),
+            floatingActionButton: SizedBox(
+              height: 70.0,
+              child: FittedBox(
+                child: FloatingActionButton(
+                  onPressed: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => FightDialog(atStopState: state,)),
+                  backgroundColor: Colors.red,
+                  child: const Icon(Icons.bolt_sharp, size: 35,),
+                ),
+              ),
+            ),
+          ),
+        );
       }
       if (state is FightFinished) {
-        if (state.winner) {
-          return FightResultScreen(
-              pokemon: state.chosenPokemon, winnerText: "you just won");
-        }
         return FightResultScreen(
-            pokemon: state.wildPokemon, winnerText: "you just lost");
+            pokemon: state.chosenPokemon, hasWin: state.winner);
       } else {
         return const Text('this is not exactly the ideal state');
       }

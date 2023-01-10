@@ -16,10 +16,10 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
       : super(AtStopInitialState(
             stopName: "Chantrerie - Grandes Ecoles",
             wildPokemon: Pokemon(
-                name: "pikatchoum",
+                name: "Ecremeuh",
                 level: 20,
                 pictureUrl:
-                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"),
+                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/241.png"),
             pokelist: [
               Pokemon(
                   name: "Salamouche",

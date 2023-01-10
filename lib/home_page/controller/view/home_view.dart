@@ -18,18 +18,22 @@ class HomeView extends StatelessWidget {
         if (state is HomeInitial) {
           return SafeArea(
             child: Scaffold(
-              appBar: AppBar(
-                title: const Text('Pokemon'),
-                centerTitle: true,
-              ),
-              body: GestureDetector(
-                onTap:(){
-                  if(state.nearAStop) {
-                    context.read<HomeBloc>().add(FindPokemon());
-                  }
-                },
-                child: PokeballWidget(
-                  isColored: state.nearAStop,
+              body: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/nantes_map_background.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: GestureDetector(
+                  onTap:(){
+                    if(state.nearAStop) {
+                      context.read<HomeBloc>().add(FindPokemon());
+                    }
+                  },
+                  child: PokeballWidget(
+                    isColored: state.nearAStop,
+                  ),
                 ),
               ),
             ),
