@@ -17,8 +17,9 @@ class _FightDialogState extends State<FightDialog> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
       child: AlertDialog(
+        insetPadding: const EdgeInsets.all(0),
         icon: const Icon(Icons.bolt_sharp, size: 50.0, color: Colors.amber,),
         title: Text('${widget.atStopState.wildPokemon.name} - level ${widget.atStopState.wildPokemon.level}', style: const TextStyle(fontSize: 25.0),),
         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 30.0),

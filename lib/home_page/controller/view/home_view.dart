@@ -39,7 +39,7 @@ class HomeView extends StatelessWidget {
             ),
           );
         } else {
-          return const Text("bad state");
+          return const Text("Loading");
         }
       },
     );

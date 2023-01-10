@@ -69,7 +69,7 @@ class _FightResultScreenState extends State<FightResultScreen> {
                 width: 250,
                 margin: const EdgeInsets.only(top: 100.0),
                 child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: (){},
                   style: ElevatedButton.styleFrom(backgroundColor: widget.hasWin? Colors.red : Colors.black, padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
