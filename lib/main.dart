@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
@@ -11,24 +12,24 @@ import 'owned_pokemons/presentation/view/owned_pokemons_view.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: Home(),
+    home: Login(),
   ));
 }
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email'
-  ]
+    scopes: [
+      'email'
+    ]
 );
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _LoginState createState() => _LoginState();
 }
 
-class _HomeState extends State<Home> {
+class _LoginState extends State<Login> {
 
   GoogleSignInAccount? _currentUser;
 
@@ -46,49 +47,47 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter Google Sign in'),
-      ),
+      appBar: _buildAppBar(),
       body: Container(
+
         alignment: Alignment.center,
         child: _buildWidget(),
       ),
     );
   }
 
-  Widget _buildWidget(){
+  AppBar _buildAppBar() {
     GoogleSignInAccount? user = _currentUser;
-    if(user != null){
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(2, 12, 2, 12),
-        child: Column(
-          children: [
-            ListTile(
-              leading: GoogleUserCircleAvatar(identity: user),
-              title:  Text(user.displayName ?? '', style: TextStyle(fontSize: 22),),
-              subtitle: Text(user.email, style: TextStyle(fontSize: 22)),
-            ),
-            const SizedBox(height: 20,),
-            const Text(
-                'Signed in successfully',
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 10,),
-            ElevatedButton(
-                onPressed: signOut,
-                child: const Text('Sign out')
-            )
-          ],
-        ),
+    if(user != null) {
+      return AppBar(
+        leading: const Icon(Icons.person_rounded),
+        title: Text(user?.displayName ?? '', style: const TextStyle(fontSize: 18),),
+        actions: [
+          ElevatedButton(
+              onPressed: signOut,
+              child: const Text('Sign out')
+          )
+        ],
       );
-    }else{
+    } else {
+      return AppBar(
+        title: const Text('Login'),
+      );
+    }
+  }
+
+  Widget _buildWidget() {
+    GoogleSignInAccount? user = _currentUser;
+    if(user != null) {
+      return const MyApp();
+    } else {
       return Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
             const SizedBox(height: 20,),
             const Text(
-                'You are not signed in',
+              'You are not signed in',
               style: TextStyle(fontSize: 30),
             ),
             const SizedBox(height: 10,),
@@ -113,7 +112,9 @@ class _HomeState extends State<Home> {
     try{
       await _googleSignIn.signIn();
     }catch (e){
-      print('Error signing in $e');
+      if (kDebugMode) {
+        print('Error signing in $e');
+      }
     }
   }
 
@@ -122,7 +123,6 @@ class _HomeState extends State<Home> {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
