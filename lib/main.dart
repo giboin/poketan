@@ -4,21 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
-import 'package:hackathon/pokemon_at_stop/domain/adapters/stop.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
-import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/at_stop_view.dart';
-import 'package:http/http.dart';
-
-import 'owned_pokemons/presentation/view/owned_pokemons_view.dart';
+import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'owned_pokemons/presentation/view/owned_pokemons_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   String temporaryPath = (await getTemporaryDirectory()).absolute.path;
   HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: Directory("${temporaryPath}/hydrated_bloc_storage"));
+      storageDirectory: Directory("$temporaryPath/hydrated_bloc_storage"));
   runApp(const MyApp());
 }
 

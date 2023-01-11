@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:http/http.dart' as http;
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -50,11 +48,13 @@ class AtStopBloc extends HydratedBloc<AtStopEvent, AtStopState> {
                       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png"),
             ])) {
     on<ChoosePokemon>((event, emit) async {
+      print("event OnChoose received");
       http.Response res = await http.get(Uri.parse(
           '$serverUrl/fight/${event.pokemon.name}/${event.pokemon.level}/${state.wildPokemon.name}/${state.wildPokemon.level}'));
       // parse this json
       Map<String, dynamic> json = jsonDecode(res.body);
       bool winnerBool = json["final_state"] == "you win";
+      print(winnerBool);
       emit(FightFinished(
           pokelist: state.pokelist,
           stopName: state.stopName,
@@ -110,7 +110,7 @@ class AtStopBloc extends HydratedBloc<AtStopEvent, AtStopState> {
   @override
   Map<String, dynamic>? toJson(AtStopState state) {
     return {
-      'pokelist': (state.pokelist.map((e) => e.toJson()).toList()),
+      'pokelist': (state.pokelist.map((e) => e.toJson())).toList(),
     };
   }
 }

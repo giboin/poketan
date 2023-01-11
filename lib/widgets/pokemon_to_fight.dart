@@ -63,6 +63,8 @@ class _FightDialogState extends State<FightDialog> {
                             ),
                             trailing: Image.network(pokemon.pictureUrl),
                             onTap: () {
+                              print("entered the on tap");
+                              Navigator.pop(context);
                               context
                                   .read<AtStopBloc>()
                                   .add(ChoosePokemon(pokemon: pokemon));

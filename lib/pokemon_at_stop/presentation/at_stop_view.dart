@@ -102,6 +102,7 @@ class PokemonsAtStopView extends StatelessWidget {
         );
       }
       if (state is FightFinished) {
+        print(state.toString());
         return FightResultScreen(
             pokemon: state.chosenPokemon, hasWin: state.winner);
       } else {
