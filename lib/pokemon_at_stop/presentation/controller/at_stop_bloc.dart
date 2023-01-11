@@ -18,10 +18,16 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
       : super(AtStopInitialState(
             stopName: stopName, wildPokemon: wildPokemon, pokelist: pokelist)) {
     on<ChoosePokemon>((event, emit) async {
-      print("event OnChoose received");
-      http.Response res = await http.get(Uri.parse(
-          '$serverUrl/fight/${event.pokemon.name}/${event.pokemon.level}/${state.wildPokemon.name}/${state.wildPokemon.level}'));
-      // parse this json
+      Map<String, dynamic> body = {
+        'owned_pokemon': event.pokemon.toMap(),
+        'wild_pokemon': wildPokemon.toMap(),
+      };
+
+      String encodedBody = jsonEncode(body);
+      print(encodedBody);
+      http.Response res = await http.post(Uri.parse('$serverUrl/fight'),
+          headers: {"Content-Type": "application/json"}, body: encodedBody);
+      print(res.body);
       Map<String, dynamic> json = jsonDecode(res.body);
       bool winnerBool = json["final_state"] == "you win";
       print(winnerBool);
