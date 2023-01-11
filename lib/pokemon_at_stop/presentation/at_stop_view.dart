@@ -17,20 +17,23 @@ class PokemonsAtStopView extends StatelessWidget {
       if (state is AtStopInitialState) {}
     }, builder: (context, state) {
       if (state is AtStopInitialState) {
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                state.stopName,
-                style: const TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.white,
+        return Scaffold(
+            appBar:  PreferredSize(
+              preferredSize: const Size.fromHeight(20.0),
+              child: AppBar(
+                primary: false,
+                title: Text(
+                  state.stopName,
+                  style: const TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.green,
+                centerTitle: true,
+                backgroundColor: Colors.green,
+              )
             ),
             body: Container(
               decoration: const BoxDecoration(
@@ -98,7 +101,6 @@ class PokemonsAtStopView extends StatelessWidget {
                 ),
               ),
             ),
-          ),
         );
       }
       if (state is FightFinished) {
