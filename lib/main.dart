@@ -26,7 +26,7 @@ class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
     if(user != null) {
       return AppBar(
         leading: const Icon(Icons.person_rounded),
-        title: Text(user?.displayName ?? '', style: const TextStyle(fontSize: 18),),
+        title: Text(user.displayName ?? '', style: const TextStyle(fontSize: 18),),
         actions: [
           ElevatedButton(
               onPressed: signOut,
