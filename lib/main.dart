@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
+import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/at_stop_view.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
@@ -29,6 +30,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<HomeBloc>(create: ((context) => HomeBloc())),
+          BlocProvider<OwnedPokemonsBloc>(
+              lazy: false, create: ((context) => OwnedPokemonsBloc())),
           BlocProvider<AtStopBloc>(create: (context) {
             Map<String, dynamic> json =
                 context.read<HomeBloc>().state.responseJson ??
@@ -41,12 +44,16 @@ class MyApp extends StatelessWidget {
                       },
                       'stop_name': 'tan_stop'
                     };
+            List<Pokemon> pokelist =
+                context.read<OwnedPokemonsBloc>().state.pokeTeam;
             return AtStopBloc(
-                stopName: json["stop_name"].toString(),
-                wildPokemon: Pokemon(
-                    name: json["pokemon_data"]["name"].toString(),
-                    level: json["pokemon_data"]["lvl"],
-                    pictureUrl: json["pokemon_data"]["sprite_url"].toString()));
+              stopName: json["stop_name"].toString(),
+              wildPokemon: Pokemon(
+                  name: json["pokemon_data"]["name"].toString(),
+                  level: json["pokemon_data"]["lvl"],
+                  pictureUrl: json["pokemon_data"]["sprite_url"].toString()),
+              pokelist: pokelist,
+            );
           }),
         ],
         child: MaterialApp(
