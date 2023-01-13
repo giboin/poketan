@@ -24,19 +24,34 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
       };
 
       String encodedBody = jsonEncode(body);
-      print(encodedBody);
       http.Response res = await http.post(Uri.parse('$serverUrl/fight'),
           headers: {"Content-Type": "application/json"}, body: encodedBody);
-      print(res.body);
       Map<String, dynamic> json = jsonDecode(res.body);
+      print(json);
       bool winnerBool = json["final_state"] == "you win";
-      print(winnerBool);
+      event.pokemon.xp = json["new_xp"];
+      event.pokemon.xp = json["new_lvl"];
+
+      Pokemon updatedPokemon = Pokemon.withXp(
+          level: json["new_lvl"],
+          name: event.pokemon.name,
+          pictureUrl: event.pokemon.pictureUrl,
+          xp: json["new_xp"],
+          pokedexId: event.pokemon.pokedexId);
+      List<Pokemon> newPokelist = pokelist.map<Pokemon>((e) {
+        if (e.name == event.pokemon.name) {
+          return event.pokemon;
+        } else {
+          return e;
+        }
+      }).toList();
       emit(FightFinished(
-          pokelist: state.pokelist,
+          pokelist: newPokelist,
           stopName: state.stopName,
           wildPokemon: state.wildPokemon,
-          chosenPokemon: event.pokemon,
-          winner: winnerBool));
+          chosenPokemon: updatedPokemon,
+          winner: winnerBool,
+          xpWon: json["xp_earned"]));
     });
   }
 }

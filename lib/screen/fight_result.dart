@@ -5,9 +5,13 @@ import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 class FightResultScreen extends StatefulWidget {
   final Pokemon pokemon;
   final bool hasWin;
+  final int xpEarned;
 
   const FightResultScreen(
-      {Key? key, required this.pokemon, required this.hasWin})
+      {Key? key,
+      required this.pokemon,
+      required this.hasWin,
+      required this.xpEarned})
       : super(key: key);
 
   @override
@@ -24,7 +28,8 @@ class _FightResultScreenState extends State<FightResultScreen> {
           child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -58,6 +63,14 @@ class _FightResultScreenState extends State<FightResultScreen> {
                 scale: 0.3,
               ),
               Text(
+                '${widget.xpEarned} xp earned',
+                style: const TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
                 '${widget.pokemon.name} at level ${widget.pokemon.level}',
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -69,14 +82,24 @@ class _FightResultScreenState extends State<FightResultScreen> {
                 width: 250,
                 margin: const EdgeInsets.only(top: 100.0),
                 child: ElevatedButton(
-                  onPressed: (){},
-                  style: ElevatedButton.styleFrom(backgroundColor: widget.hasWin? Colors.red : Colors.black, padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 10.0)),
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          widget.hasWin ? Colors.red : Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 7.0, horizontal: 10.0)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
-                      Icon(Icons.keyboard_return_outlined, size: 30,),
+                      Icon(
+                        Icons.keyboard_return_outlined,
+                        size: 30,
+                      ),
                       SizedBox(width: 10.0),
-                      Text('Refaire un combat', style: TextStyle(fontSize: 22.0),),
+                      Text(
+                        'Refaire un combat',
+                        style: TextStyle(fontSize: 22.0),
+                      ),
                     ],
                   ),
                 ),

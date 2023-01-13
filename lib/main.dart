@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
             return AtStopBloc(
               stopName: json["stop_name"].toString(),
               wildPokemon: Pokemon(
+                  pokedexId: json["pokemon_data"]["pokedex_id"],
                   name: json["pokemon_data"]["name"].toString(),
                   level: json["pokemon_data"]["lvl"],
                   pictureUrl: json["pokemon_data"]["sprite_url"].toString()),

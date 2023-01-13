@@ -5,7 +5,7 @@ class Pokemon {
   String name;
   String pictureUrl;
   int level;
-  int? pokedexId;
+  int pokedexId;
   int xp;
 
   Pokemon.withXp({
@@ -13,14 +13,14 @@ class Pokemon {
     required this.level,
     required this.xp,
     required this.pictureUrl,
-    this.pokedexId,
+    required this.pokedexId,
   });
 
   Pokemon({
     required this.name,
     required this.level,
     required this.pictureUrl,
-    this.pokedexId,
+    required this.pokedexId,
   }) : xp = pow(level, 3).toInt();
 
   Map<String, dynamic> toMap() {
@@ -29,7 +29,7 @@ class Pokemon {
       'level': level,
       'xp': xp,
       'picture_url': pictureUrl,
-      'pokedex_id': pokedexId ?? "",
+      'pokedex_id': pokedexId,
     };
   }
 

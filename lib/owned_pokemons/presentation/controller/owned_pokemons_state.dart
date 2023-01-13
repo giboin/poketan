@@ -14,3 +14,7 @@ class OwnedPokemonsInitial extends OwnedPokemonsState {
   const OwnedPokemonsInitial(
       {required super.pokeList, required super.pokeTeam});
 }
+
+class PokemonUpdated extends OwnedPokemonsState {
+  const PokemonUpdated({required super.pokeList, required super.pokeTeam});
+}

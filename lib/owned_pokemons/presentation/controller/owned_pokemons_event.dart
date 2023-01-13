@@ -6,3 +6,21 @@ abstract class OwnedPokemonsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class PokemonChanged extends OwnedPokemonsEvent {
+  final Pokemon pokemon;
+
+  const PokemonChanged({required this.pokemon});
+
+  @override
+  List<Object> get props => [pokemon];
+}
+
+class NewPokemon extends OwnedPokemonsEvent {
+  final Pokemon pokemon;
+
+  const NewPokemon({required this.pokemon});
+
+  @override
+  List<Object> get props => [pokemon];
+}
