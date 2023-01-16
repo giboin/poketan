@@ -9,16 +9,19 @@ class OwnedPokemons extends StatelessWidget {
     Pokemon(
         name: "Salamouche",
         level: 2,
+        pokedexId: 4,
         pictureUrl:
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"),
     Pokemon(
         name: "Bulbazar",
         level: 50,
+        pokedexId: 1,
         pictureUrl:
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"),
     Pokemon(
         name: "Carapute",
         level: 37,
+        pokedexId: 7,
         pictureUrl:
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"),
   ];

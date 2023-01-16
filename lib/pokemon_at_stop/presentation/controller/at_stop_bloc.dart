@@ -1,72 +1,57 @@
 import 'dart:convert';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hackathon/pokemon_at_stop/domain/adapters/stop.dart';
-
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:http/http.dart' as http;
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'at_stop_event.dart';
 part 'at_stop_state.dart';
 
 class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
   final String serverUrl = "https://hackathon-server.osc-fr1.scalingo.io/";
-  final Stop stop;
 
-  AtStopBloc({
-    required this.stop,
-  }) : super(AtStopInitialState(
-            stopName: stop.name,
-            wildPokemon: Pokemon(
-                name: "Ecremeuh",
-                level: 20,
-                pictureUrl:
-                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/241.png"),
-            pokelist: [
-              Pokemon(
-                  name: "Salamouche",
-                  level: 2,
-                  pictureUrl:
-                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"),
-              Pokemon(
-                  name: "Bulbazar",
-                  level: 50,
-                  pictureUrl:
-                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"),
-              Pokemon(
-                  name: "Carapute",
-                  level: 37,
-                  pictureUrl:
-                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"),
-              Pokemon(
-                  name: "Doudoudou",
-                  level: 5,
-                  pictureUrl:
-                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png"),
-              Pokemon(
-                  name: "Sablaire",
-                  level: 31,
-                  pictureUrl:
-                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png"),
-              Pokemon(
-                  name: "Ratatrouille",
-                  level: 22,
-                  pictureUrl:
-                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png"),
-            ])) {
+  AtStopBloc(
+      {required String stopName,
+      required Pokemon wildPokemon,
+      required List<Pokemon> pokelist})
+      : super(AtStopInitialState(
+            stopName: stopName, wildPokemon: wildPokemon, pokelist: pokelist)) {
     on<ChoosePokemon>((event, emit) async {
-      http.Response res = await http.get(Uri.parse(
-          '$serverUrl/fight/${event.pokemon.name}/${event.pokemon.level}/${state.wildPokemon.name}/${state.wildPokemon.level}'));
-      // parse this json
+      Map<String, dynamic> body = {
+        'owned_pokemon': event.pokemon.toMap(),
+        'wild_pokemon': wildPokemon.toMap(),
+      };
+
+      String encodedBody = jsonEncode(body);
+      http.Response res = await http.post(Uri.parse('$serverUrl/fight'),
+          headers: {"Content-Type": "application/json"}, body: encodedBody);
       Map<String, dynamic> json = jsonDecode(res.body);
+      print(json);
       bool winnerBool = json["final_state"] == "you win";
+      event.pokemon.xp = json["new_xp"];
+      event.pokemon.xp = json["new_lvl"];
+
+      Pokemon updatedPokemon = Pokemon.withXp(
+          level: json["new_lvl"],
+          name: event.pokemon.name,
+          pictureUrl: event.pokemon.pictureUrl,
+          xp: json["new_xp"],
+          pokedexId: event.pokemon.pokedexId);
+      List<Pokemon> newPokelist = pokelist.map<Pokemon>((e) {
+        if (e.name == event.pokemon.name) {
+          return event.pokemon;
+        } else {
+          return e;
+        }
+      }).toList();
       emit(FightFinished(
-          pokelist: state.pokelist,
+          pokelist: newPokelist,
           stopName: state.stopName,
           wildPokemon: state.wildPokemon,
-          chosenPokemon: event.pokemon,
-          winner: winnerBool));
+          chosenPokemon: updatedPokemon,
+          winner: winnerBool,
+          xpWon: json["xp_earned"]));
     });
   }
 }
