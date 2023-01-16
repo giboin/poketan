@@ -12,15 +12,13 @@ class InventoryPokemonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: ListTile(
-        title: Text(pokemon.name),
-        subtitle: Column(
+        child: Column(
           children: [
             Image.network(pokemon.pictureUrl),
-            Text("niveau ${pokemon.level}")
+            Text("${pokemon.name} niveau ${pokemon.level}")
           ],
         ),
-      ),
+      
     );
   }
 }
