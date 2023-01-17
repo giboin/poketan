@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
-import 'package:hackathon/owned_pokemons/presentation/view/owned_pokemons_view.dart';
 import 'package:hackathon/screen/fight_result.dart';
 import 'package:hackathon/widgets/pokemon_to_fight.dart';
 

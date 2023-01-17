@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:http/http.dart' as http;
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -27,7 +28,9 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
       http.Response res = await http.post(Uri.parse('$serverUrl/fight'),
           headers: {"Content-Type": "application/json"}, body: encodedBody);
       Map<String, dynamic> json = jsonDecode(res.body);
-      print(json);
+      if (kDebugMode) {
+        print(json);
+      }
       bool winnerBool = json["final_state"] == "you win";
       event.pokemon.xp = json["new_xp"];
       event.pokemon.xp = json["new_lvl"];
