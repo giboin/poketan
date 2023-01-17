@@ -43,6 +43,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   http: ^0.13.5
   geolocator: ^8.0.0
+  google_sign_in: ^5.4.3
 
 dev_dependencies:
   flutter_test:

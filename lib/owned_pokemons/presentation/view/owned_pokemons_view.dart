@@ -29,21 +29,46 @@ class OwnedPokemons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(children: [
-          const Text("Mes Pokemouns"),
-          const Padding(padding: EdgeInsets.all(10)),
-          Expanded(
-            child: GridView.builder(
-                itemCount: myPokemons.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (ctx, int index) {
-                  return InventoryPokemonCard(pokemon: myPokemons[index]);
-                }),
-          ),
-        ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pop(context),
+        child: const Icon(Icons.home),
+        ),
+      body: Container(
+        decoration: const BoxDecoration(
+    image: DecorationImage(
+      fit: BoxFit.fill,
+      image:AssetImage("assets/ronflex_background.png"),
+    ),
+        ),
+    child: SafeArea(
+        child: 
+            Column(
+              children: [
+                
+            const Padding(
+              padding: EdgeInsets.only(top:8.0, bottom: 10.0),
+              child: Text(
+                "Mes Pokemouns", 
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.black
+                  ),
+                  ),
+            ),
+            Expanded(
+              child: GridView.builder(
+                  itemCount: myPokemons.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemBuilder: (ctx, int index) {
+                    return InventoryPokemonCard(pokemon: myPokemons[index]);
+                  }),
+            ),
+          ]),
+          
+        ),
+          
       ),
     );
   }

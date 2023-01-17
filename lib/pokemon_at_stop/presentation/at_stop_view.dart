@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
-import 'package:hackathon/owned_pokemons/presentation/view/owned_pokemons_view.dart';
 import 'package:hackathon/screen/fight_result.dart';
 import 'package:hackathon/widgets/pokemon_to_fight.dart';
 
@@ -29,20 +28,23 @@ class PokemonsAtStopView extends StatelessWidget {
       }
     }, builder: (context, state) {
       if (state is AtStopInitialState) {
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                state.stopName,
-                style: const TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.white,
+        return Scaffold(
+            appBar:  PreferredSize(
+              preferredSize: const Size.fromHeight(20.0),
+              child: AppBar(
+                primary: false,
+                title: Text(
+                  state.stopName,
+                  style: const TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.green,
+                centerTitle: true,
+                backgroundColor: Colors.green,
+              )
             ),
             body: Container(
               decoration: const BoxDecoration(
@@ -110,7 +112,6 @@ class PokemonsAtStopView extends StatelessWidget {
                 ),
               ),
             ),
-          ),
         );
       }
       if (state is FightFinished) {

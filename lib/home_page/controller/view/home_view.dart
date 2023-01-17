@@ -16,36 +16,34 @@ class HomeView extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is HomeInitial) {
-          return SafeArea(
-            child: Scaffold(
-              floatingActionButton: SizedBox(
-                height: 80,
-                width: 80,
-                child: FloatingActionButton(
-                  backgroundColor: Colors.transparent,
-                  child: Image.asset("assets/backpack.png"),
-                  onPressed: () {
-                    // TODO: Changer ça avec BLoC (add un event, push un state, push la navigationa avec le listener)
-                    Navigator.of(context).pushNamed('owned_pokemons');
-                  },
+          return Scaffold(
+            floatingActionButton: SizedBox(
+              height: 80,
+              width: 80,
+              child: FloatingActionButton(
+                backgroundColor: Colors.transparent,
+                child: Image.asset("assets/backpack.png"),
+                onPressed: () {
+                  // TODO: Changer ça avec BLoC (add un event, push un state, push la navigationa avec le listener)
+                  Navigator.of(context).pushNamed('owned_pokemons');
+                },
+              ),
+            ),
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/nantes_map_background.png"),
+                  fit: BoxFit.cover,
                 ),
               ),
-              body: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/nantes_map_background.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    if (state.nearAStop) {
-                      context.read<HomeBloc>().add(FindPokemon());
-                    }
-                  },
-                  child: PokeballWidget(
-                    isColored: state.nearAStop,
-                  ),
+              child: GestureDetector(
+                onTap: () {
+                  if (state.nearAStop) {
+                    context.read<HomeBloc>().add(FindPokemon());
+                  }
+                },
+                child: PokeballWidget(
+                  isColored: state.nearAStop,
                 ),
               ),
             ),
