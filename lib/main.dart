@@ -9,6 +9,7 @@ import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
+import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/at_stop_view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
@@ -97,7 +98,9 @@ class _LoginState extends State<Login> {
               'You are not signed in',
               style: TextStyle(fontSize: 30),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             SignInButton(
               Buttons.GoogleDark,
               text: "Sign up with Google",
@@ -150,11 +153,7 @@ class MyApp extends StatelessWidget {
                 context.read<OwnedPokemonsBloc>().state.pokeTeam;
             return AtStopBloc(
               stopName: json["stop_name"].toString(),
-              wildPokemon: Pokemon(
-                  pokedexId: json["pokemon_data"]["pokedex_id"],
-                  name: json["pokemon_data"]["name"].toString(),
-                  level: json["pokemon_data"]["lvl"],
-                  pictureUrl: json["pokemon_data"]["sprite_url"].toString()),
+              wildPokemon: PokemonAdapter.fromJson(json: json["pokemon_data"]),
               pokelist: pokelist,
             );
           }),
