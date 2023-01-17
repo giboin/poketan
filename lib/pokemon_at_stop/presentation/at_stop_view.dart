@@ -99,7 +99,7 @@ class PokemonsAtStopView extends StatelessWidget {
             child: FittedBox(
               child: FloatingActionButton(
                 onPressed: () {
-                 // context.read<AtStopBloc>().add(const ChoosePokemon());
+                  context.read<AtStopBloc>().add(const ChoosePokemon());
                 },
                 backgroundColor: Colors.red,
                 child: const Icon(

@@ -17,9 +17,8 @@ class PokemonChosen extends AtStopEvent {
 }
 
 class ChoosePokemon extends AtStopEvent {
-  final Pokemon pokemon;
 
-  const ChoosePokemon({required this.pokemon});
+  const ChoosePokemon();
 }
 
 class GoToInitialState extends AtStopEvent {
