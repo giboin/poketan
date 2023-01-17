@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
-import 'package:hackathon/owned_pokemons/presentation/view/owned_pokemons_view.dart';
-import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 import 'package:hackathon/widgets/pokeball_widget.dart';
@@ -15,7 +13,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
-        if (state is HomeFoundPokemon) {
+        if (state is HomeInitial) {
           Map<String, dynamic> json = state.responseJson ??
               {
                 "pokemon_data": {
@@ -32,7 +30,6 @@ class HomeView extends StatelessWidget {
                   : [],
               wildPokemon: PokemonAdapter.fromJson(json: json["pokemon_data"]),
               stopName: json["stop_name"].toString()));
-          Navigator.of(context).pushNamed('pokemon_at_stop');
         }
       },
       builder: (context, state) {
@@ -61,7 +58,7 @@ class HomeView extends StatelessWidget {
                 onTap: () {
                   if (state.nearAStop) {
                     Navigator.of(context).pushNamed('pokemon_at_stop');
-                    //context.read<HomeBloc>().add(FindPokemon());
+                    // context.read<HomeBloc>().add(FindPokemon());
                   }
                 },
                 child: PokeballWidget(

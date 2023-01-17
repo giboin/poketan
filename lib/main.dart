@@ -8,7 +8,6 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
-import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/at_stop_view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -149,9 +148,6 @@ class MyApp extends StatelessWidget {
                       },
                       'stop_name': 'tan_stop'
                     };
-            OwnedPokemonsState state = context.read<OwnedPokemonsBloc>().state;
-            List<Pokemon> pokelist =
-                (state is PokemonUpdated) ? state.pokeTeam : [];
             return AtStopBloc(
               stopName: json["stop_name"].toString(),
               wildPokemon: PokemonAdapter.fromJson(json: json["pokemon_data"]),

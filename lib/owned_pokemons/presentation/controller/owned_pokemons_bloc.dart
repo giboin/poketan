@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -14,9 +15,10 @@ class OwnedPokemonsBloc
       : super(
           const OwnedPokemonsChooseStarter(),
         ) {
-    print(state.runtimeType);
     on<PokemonChanged>((event, emit) {
-      print('on PokemonChanged');
+      if (kDebugMode) {
+        print('on PokemonChanged');
+      }
 
       List<Pokemon> pokeList =
           (state is PokemonUpdated) ? (state as PokemonUpdated).pokeList : [];
@@ -44,7 +46,9 @@ class OwnedPokemonsBloc
     });
 
     on<NewPokemon>((event, emit) {
-      print('on NewPokemon');
+      if (kDebugMode) {
+        print('on NewPokemon');
+      }
       List<Pokemon> pokeList =
           (state is PokemonUpdated) ? (state as PokemonUpdated).pokeList : [];
       List<Pokemon> pokeTeam =
@@ -58,7 +62,9 @@ class OwnedPokemonsBloc
     });
 
     on<NewTeam>((event, emit) {
-      print('on NewTeam');
+      if (kDebugMode) {
+        print('on NewTeam');
+      }
       List<Pokemon> pokeList =
           (state is PokemonUpdated) ? (state as PokemonUpdated).pokeList : [];
       emit(PokemonUpdated(
@@ -70,7 +76,6 @@ class OwnedPokemonsBloc
 
   @override
   OwnedPokemonsState? fromJson(Map<String, dynamic> json) {
-    print('hello from Fromjson\n$json');
     return PokemonUpdated(
       pokeList: (json['pokelist'] as List<Map<String, dynamic>>)
           .map((p) => PokemonAdapter.fromJson(json: p))
@@ -84,16 +89,13 @@ class OwnedPokemonsBloc
   @override
   Map<String, dynamic>? toJson(OwnedPokemonsState state) {
     if (state is PokemonUpdated) {
-      print(
-          'hello from toJson\npokelist : ${state.pokeList}\npoketeam : ${state.pokeTeam}');
-
       Map<String, dynamic> json = {
         'pokelist': state.pokeList.map((p) => p.toJson()).toList(),
         'poketeam': state.pokeTeam.map((p) => p.toJson()).toList(),
       };
-
-      print('json : $json');
       return json;
+    } else {
+      return null;
     }
   }
 

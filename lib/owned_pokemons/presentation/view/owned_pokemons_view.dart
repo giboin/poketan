@@ -35,7 +35,6 @@ class OwnedPokemons extends StatelessWidget {
 
     return BlocBuilder<OwnedPokemonsBloc, OwnedPokemonsState>(
         builder: (context, state) {
-      print('state type : ${state.runtimeType}');
       if (state is OwnedPokemonsChooseStarter) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
