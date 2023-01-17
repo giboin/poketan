@@ -118,7 +118,7 @@ class PokemonsAtStopView extends StatelessWidget {
               hasWin: state.winner,
               xpEarned: state.xpWon),
           onWillPop: () async {
-            //context.read<HomeBloc>().add(const HomeInitial(nearAStop: false));
+            context.read<HomeBloc>().add(GoToHomeBlocInitialState());
             Navigator.pushNamed(context, "/");
             return false;
           },
