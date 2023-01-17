@@ -87,7 +87,7 @@ class OwnedPokemonsBloc
     on<OwnedPokemonsEvent>((event, emit) {
       // TODO: implement event handler
     });
-
+ 
     on<PokemonChanged>((event, emit) {
       List<Pokemon> newPokelist = state.pokeList.map<Pokemon>((e) {
         if (e.pokedexId == event.pokemon.pokedexId) {
@@ -117,7 +117,13 @@ class OwnedPokemonsBloc
       }
       emit(PokemonUpdated(pokeList: newPokelist, pokeTeam: state.pokeTeam));
     });
+
+    on<NewTeam>((event, emit) {
+      emit(PokemonUpdated(pokeList: state.pokeList, pokeTeam: event.newTeam));
+    });
   }
+
+   
 
   @override
   OwnedPokemonsState? fromJson(Map<String, dynamic> json) {

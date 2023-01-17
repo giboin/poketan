@@ -11,7 +11,7 @@ class OwnedPokemons extends StatelessWidget {
   Widget build(BuildContext context) {
 
     List<Pokemon> myPokemons = context.read<OwnedPokemonsBloc>().state.pokeList;
-    List<Pokemon> myTeam = context.read<OwnedPokemonsBloc>().state.pokeTeam;
+    //List<Pokemon> myTeam = context.read<OwnedPokemonsBloc>().state.pokeTeam;
 
 
     return Scaffold(
@@ -29,10 +29,11 @@ class OwnedPokemons extends StatelessWidget {
         child: BlocConsumer<OwnedPokemonsBloc, OwnedPokemonsState>(
           listener: (context, state) {
             myPokemons = state.pokeList;
-            myTeam = state.pokeTeam;
+            //myTeam = state.pokeTeam;
 
           },
-          builder: (context, state)=>SafeArea(
+          builder: (context, state) {
+            return SafeArea(
             child: Column(children: [
               const Padding(
                 padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
@@ -49,11 +50,12 @@ class OwnedPokemons extends StatelessWidget {
                       crossAxisCount: 2,
                     ),
                     itemBuilder: (ctx, int index) {
-                      return InventoryPokemonCard(pokemon: myPokemons[index], team:myTeam.contains(myPokemons[index]));
+                      return InventoryPokemonCard(pokemon: myPokemons[index]);
                     }),
               ),
             ]),
-          ),
+          );
+          },
         ),
       ),
     );

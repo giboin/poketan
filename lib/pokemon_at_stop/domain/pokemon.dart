@@ -36,4 +36,9 @@ class Pokemon {
   String toJson() {
     return jsonEncode(toMap());
   }
+
+  @override
+  String toString() {
+    return "$pokedexId: $name niveau $level";
+  }
 }
