@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/view/owned_pokemons_view.dart';
+import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 import 'package:hackathon/widgets/pokeball_widget.dart';
 
@@ -26,17 +27,12 @@ class HomeView extends StatelessWidget {
                 },
                 'stop_name': 'tan_stop'
               };
-          Pokemon wildPokemon = Pokemon(
-              name: json["pokemon_data"]["name"].toString(),
-              level: json["pokemon_data"]["lvl"],
-              pictureUrl: json["pokemon_data"]["sprite_url"].toString(),
-              pokedexId: json["pokemon_data"]["pokedex_id"]);
 
           List<Pokemon> pokelist =
               context.read<OwnedPokemonsBloc>().state.pokeList;
           context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
               pokelist: pokelist,
-              wildPokemon: wildPokemon,
+              wildPokemon: PokemonAdapter.fromJson(json: json["pokemon_data"]),
               stopName: json["stop_name"].toString()));
           Navigator.of(context).pushNamed('pokemon_at_stop');
         }
