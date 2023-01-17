@@ -35,11 +35,12 @@ class OwnedPokemonsBloc
     });
 
     on<NewPokemon>((event, emit) {
-      List<Pokemon> newPokelist = state.pokeList;
+      List<Pokemon> newPokelist = List.from(state.pokeList);
       List<int> pokedexIds =
           state.pokeList.map<int>((e) => e.pokedexId).toList();
       if (!pokedexIds.contains(event.pokemon.pokedexId)) {
         newPokelist.add(event.pokemon);
+        //TODO c'est ça qui bug
       }
       emit(PokemonUpdated(pokeList: newPokelist, pokeTeam: state.pokeTeam));
     });

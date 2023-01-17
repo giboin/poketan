@@ -10,7 +10,6 @@ class OwnedPokemons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Pokemon> myPokemons = context.read<OwnedPokemonsBloc>().state.pokeList;
     List<Pokemon> starters = [
       Pokemon(
           name: "Bulbizarre",
@@ -85,7 +84,6 @@ class OwnedPokemons extends StatelessWidget {
             ),
             child: BlocConsumer<OwnedPokemonsBloc, OwnedPokemonsState>(
               listener: (context, state) {
-                myPokemons = state.pokeList;
                 //myTeam = state.pokeTeam;
               },
               builder: (context, state) {
@@ -100,14 +98,14 @@ class OwnedPokemons extends StatelessWidget {
                     ),
                     Expanded(
                       child: GridView.builder(
-                          itemCount: myPokemons.length,
+                          itemCount: state.pokeList.length,
                           gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                           ),
                           itemBuilder: (ctx, int index) {
                             return InventoryPokemonCard(
-                                pokemon: myPokemons[index]);
+                                pokemon: state.pokeList[index]);
                           }),
                     ),
                   ]),

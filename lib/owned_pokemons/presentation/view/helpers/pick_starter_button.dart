@@ -3,23 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 
-class PickStarterButton extends StatefulWidget {
+class PickStarterButton extends StatelessWidget {
   final Pokemon pokemon;
 
   const PickStarterButton({Key? key, required this.pokemon}) : super(key: key);
 
   @override
-  State<PickStarterButton> createState() => _PickStarterButtonState();
-}
-
-class _PickStarterButtonState extends State<PickStarterButton> {
-  @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: (){
-        context.read<OwnedPokemonsBloc>().add(NewPokemon(pokemon: widget.pokemon));
-        List<Pokemon> initialTeam = [widget.pokemon];
-        context.read<OwnedPokemonsBloc>().add(NewTeam(newTeam: initialTeam));
+         context.read<OwnedPokemonsBloc>().add(NewPokemon(pokemon: pokemon));
+         List<Pokemon> initialTeam = [pokemon];
+         context.read<OwnedPokemonsBloc>().add(NewTeam(newTeam: initialTeam));
       },
       child: Stack(
         alignment: Alignment.center,
@@ -30,8 +25,8 @@ class _PickStarterButtonState extends State<PickStarterButton> {
             child: Card(
               child: Column(
                 children: [
-                  Image.network(widget.pokemon.pictureUrl),
-                  Text("${widget.pokemon.name} niveau ${widget.pokemon.level}")
+                  Image.network(pokemon.pictureUrl),
+                  Text("${pokemon.name} niveau ${pokemon.level}")
                 ],
               ),
             ),

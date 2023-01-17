@@ -28,4 +28,7 @@ class NewPokemon extends OwnedPokemonsEvent {
 class NewTeam extends OwnedPokemonsEvent {
   final List<Pokemon> newTeam;
   const NewTeam({required this.newTeam});
+
+   @override
+  List<Object> get props => [newTeam];
 }
