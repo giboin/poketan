@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/screen/fight_result.dart';
 import 'package:hackathon/screen/pokemon_to_fight.dart';
@@ -111,10 +112,17 @@ class PokemonsAtStopView extends StatelessWidget {
         );
       }
       if (state is FightFinished) {
-        return FightResultScreen(
-            pokemon: state.chosenPokemon,
-            hasWin: state.winner,
-            xpEarned: state.xpWon);
+        return WillPopScope(
+          child: FightResultScreen(
+              pokemon: state.chosenPokemon,
+              hasWin: state.winner,
+              xpEarned: state.xpWon),
+          onWillPop: () async {
+            context.read<HomeBloc>().add(HomeInitial(nearAStop: false));
+            Navigator.pushNamed(context, "/");
+            return false;
+          },
+        );
       }
       if (state is ChoosingPokemon) {
         return WillPopScope(
