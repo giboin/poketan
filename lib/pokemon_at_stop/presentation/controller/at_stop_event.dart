@@ -21,5 +21,12 @@ class ChoosePokemon extends AtStopEvent {
 }
 
 class GoToAtStopBlocInitial extends AtStopEvent {
-  const GoToAtStopBlocInitial();
+  final Pokemon wildPokemon;
+  final String stopName;
+  final List<Pokemon> pokelist;
+
+  const GoToAtStopBlocInitial(
+      {required this.pokelist,
+      required this.wildPokemon,
+      required this.stopName});
 }

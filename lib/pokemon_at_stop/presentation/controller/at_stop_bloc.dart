@@ -27,9 +27,9 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
 
     on<GoToAtStopBlocInitial>((event, emit) {
       emit(AtStopInitialState(
-          pokelist: state.pokelist,
-          stopName: state.stopName,
-          wildPokemon: state.wildPokemon));
+          pokelist: event.pokelist,
+          stopName: event.stopName,
+          wildPokemon: event.wildPokemon));
     });
 
     on<PokemonChosen>((event, emit) async {

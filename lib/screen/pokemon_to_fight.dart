@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
@@ -72,7 +73,10 @@ class _FightDialogState extends State<FightDialog> {
               ),
               TextButton(
               onPressed: () {
-                context.read<AtStopBloc>().add(const GoToAtStopBlocInitial());
+                context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
+                pokelist: context.read<OwnedPokemonsBloc>().state.pokeList,
+                stopName: context.read<AtStopBloc>().state.stopName,
+                wildPokemon: context.read<AtStopBloc>().state.wildPokemon));
               },
               child: const Text(
                 'Annuler',

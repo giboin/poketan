@@ -32,9 +32,11 @@ class FightResultScreen extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        context
-                            .read<AtStopBloc>()
-                            .add(const GoToAtStopBlocInitial());
+                        AtStopState state = context.read<AtStopBloc>().state;
+                        context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
+                            pokelist: state.pokelist,
+                            wildPokemon: state.wildPokemon,
+                            stopName: state.stopName));
                         context.read<HomeBloc>().add(GoToHomeBlocInitial());
                         Navigator.pushNamed(context, '/');
                         // Navigator.push(

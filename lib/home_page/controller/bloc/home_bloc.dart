@@ -54,6 +54,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           await http.get(Uri.parse('$serverUrl/localisation/$lat/$long'));
       // parse this json
       Map<String, dynamic> json = jsonDecode(res.body);
+      // print("json printed : $json");
       emit(HomeInitial(
           nearAStop: json["stop_name"] != "too_far", responseJson: json));
     });
