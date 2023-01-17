@@ -17,17 +17,15 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
       required Pokemon wildPokemon,
       required List<Pokemon> pokelist})
       : super(AtStopInitialState(
-            stopName: stopName, wildPokemon: wildPokemon, pokelist: pokelist)) {
+            stopName: stopName, wildPokemon: wildPokemon)) {
     on<ChoosePokemon>((event, emit) {
       emit(ChoosingPokemon(
-          pokelist: state.pokelist,
           stopName: state.stopName,
           wildPokemon: state.wildPokemon));
     });
 
     on<GoToAtStopBlocInitial>((event, emit) {
       emit(AtStopInitialState(
-          pokelist: event.pokelist,
           stopName: event.stopName,
           wildPokemon: event.wildPokemon));
     });
@@ -63,7 +61,6 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
         }
       }).toList();
       emit(FightFinished(
-          pokelist: newPokelist,
           stopName: state.stopName,
           wildPokemon: state.wildPokemon,
           chosenPokemon: updatedPokemon,

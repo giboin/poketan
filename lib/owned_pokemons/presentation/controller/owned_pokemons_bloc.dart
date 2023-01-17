@@ -10,9 +10,8 @@ class OwnedPokemonsBloc
     extends HydratedBloc<OwnedPokemonsEvent, OwnedPokemonsState> {
   OwnedPokemonsBloc()
       : super(const OwnedPokemonsInitial(pokeList: [], pokeTeam: [])) {
-    on<OwnedPokemonsEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    // on<OwnedPokemonsEvent>((event, emit) {
+    // });
  
     on<PokemonChanged>((event, emit) {
       List<Pokemon> newPokelist = state.pokeList.map<Pokemon>((e) {
@@ -40,7 +39,6 @@ class OwnedPokemonsBloc
           state.pokeList.map<int>((e) => e.pokedexId).toList();
       if (!pokedexIds.contains(event.pokemon.pokedexId)) {
         newPokelist.add(event.pokemon);
-        //TODO c'est ça qui bug
       }
       emit(PokemonUpdated(pokeList: newPokelist, pokeTeam: state.pokeTeam));
     });

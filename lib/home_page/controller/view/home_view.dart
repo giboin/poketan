@@ -30,7 +30,6 @@ class HomeView extends StatelessWidget {
           List<Pokemon> pokelist =
               context.read<OwnedPokemonsBloc>().state.pokeList;
           context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-              pokelist: pokelist,
               wildPokemon: PokemonAdapter.fromJson(json: json["pokemon_data"]),
               stopName: json["stop_name"].toString()));
           Navigator.of(context).pushNamed('pokemon_at_stop');

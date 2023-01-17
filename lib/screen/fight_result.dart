@@ -34,11 +34,10 @@ class FightResultScreen extends StatelessWidget {
                       onPressed: () {
                         AtStopState state = context.read<AtStopBloc>().state;
                         context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                            pokelist: state.pokelist,
                             wildPokemon: state.wildPokemon,
                             stopName: state.stopName));
                         context.read<HomeBloc>().add(GoToHomeBlocInitial());
-                        Navigator.pushNamed(context, '/');
+                        Navigator.pop(context);
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(

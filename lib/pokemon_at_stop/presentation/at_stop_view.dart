@@ -33,7 +33,6 @@ class PokemonsAtStopView extends StatelessWidget {
           onWillPop: () async {
             context.read<HomeBloc>().add(GoToHomeBlocInitial());
             context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: state.pokelist,
                 stopName: state.stopName,
                 wildPokemon: state.wildPokemon));
             Navigator.pop(context);
@@ -131,7 +130,6 @@ class PokemonsAtStopView extends StatelessWidget {
           onWillPop: () async {
             context.read<HomeBloc>().add(GoToHomeBlocInitial());
             context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: state.pokelist,
                 stopName: state.stopName,
                 wildPokemon: state.wildPokemon));
             Navigator.pop(context);//pushNamed(context, "/");
@@ -144,7 +142,6 @@ class PokemonsAtStopView extends StatelessWidget {
           child: FightDialog(atStopState: state),
           onWillPop: () async {
             context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: state.pokelist,
                 wildPokemon: state.wildPokemon,
                 stopName: state.stopName));
             return false;

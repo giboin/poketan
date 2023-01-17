@@ -5,18 +5,14 @@ import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.d
 
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 
-class FightDialog extends StatefulWidget {
+class FightDialog extends StatelessWidget {
   final AtStopState atStopState;
 
   const FightDialog({Key? key, required this.atStopState}) : super(key: key);
 
   @override
-  State<FightDialog> createState() => _FightDialogState();
-}
-
-class _FightDialogState extends State<FightDialog> {
-  @override
   Widget build(BuildContext context) {
+    List<Pokemon> pokeTeam =  context.read<OwnedPokemonsBloc>().state.pokeTeam;
     return Material(
         child:Column(
             children: [
@@ -25,9 +21,9 @@ class _FightDialogState extends State<FightDialog> {
             size: 50.0,
             color: Colors.amber,
           ),
-          Image.network(widget.atStopState.wildPokemon.pictureUrl),
+          Image.network(atStopState.wildPokemon.pictureUrl),
           Text(
-            '${widget.atStopState.wildPokemon.name} - level ${widget.atStopState.wildPokemon.level}',
+            '${atStopState.wildPokemon.name} - level ${atStopState.wildPokemon.level}',
             style: const TextStyle(fontSize: 25.0),
           ),
           const Padding(padding: EdgeInsets.all(10)),
@@ -46,9 +42,9 @@ class _FightDialogState extends State<FightDialog> {
                   width: 600.0,
                   margin: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: ListView.builder(
-                      itemCount: widget.atStopState.pokelist.length,
+                      itemCount: pokeTeam.length,
                       itemBuilder: (context, index) {
-                        Pokemon pokemon = widget.atStopState.pokelist[index];
+                        Pokemon pokemon = pokeTeam[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Card(
@@ -74,7 +70,6 @@ class _FightDialogState extends State<FightDialog> {
               TextButton(
               onPressed: () {
                 context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: context.read<OwnedPokemonsBloc>().state.pokeList,
                 stopName: context.read<AtStopBloc>().state.stopName,
                 wildPokemon: context.read<AtStopBloc>().state.wildPokemon));
               },
