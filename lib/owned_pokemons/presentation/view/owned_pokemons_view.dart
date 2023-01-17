@@ -32,28 +32,22 @@ class OwnedPokemons extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pop(context),
         child: const Icon(Icons.home),
-        ),
+      ),
       body: Container(
         decoration: const BoxDecoration(
-    image: DecorationImage(
-      fit: BoxFit.fill,
-      image:AssetImage("assets/ronflex_background.png"),
-    ),
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage("assets/ronflex_background.png"),
+          ),
         ),
-    child: SafeArea(
-        child: 
-            Column(
-              children: [
-                
+        child: SafeArea(
+          child: Column(children: [
             const Padding(
-              padding: EdgeInsets.only(top:8.0, bottom: 10.0),
+              padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
               child: Text(
-                "Mes Pokemouns", 
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.black
-                  ),
-                  ),
+                "Mes Pokemouns",
+                style: TextStyle(fontSize: 30, color: Colors.black),
+              ),
             ),
             Expanded(
               child: GridView.builder(
@@ -66,9 +60,7 @@ class OwnedPokemons extends StatelessWidget {
                   }),
             ),
           ]),
-          
         ),
-          
       ),
     );
   }
