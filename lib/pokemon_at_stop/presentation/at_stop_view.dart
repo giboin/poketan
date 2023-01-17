@@ -22,89 +22,100 @@ class PokemonsAtStopView extends StatelessWidget {
             .read<OwnedPokemonsBloc>()
             .add(PokemonChanged(pokemon: state.chosenPokemon));
         if (state.winner) {
-          context
+            context
               .read<OwnedPokemonsBloc>()
               .add(NewPokemon(pokemon: state.wildPokemon));
         }
       }
     }, builder: (context, state) {
       if (state is AtStopInitialState) {
-        return Scaffold(
-          appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(20.0),
-              child: AppBar(
-                primary: false,
-                title: Text(
-                  state.stopName,
-                  style: const TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white,
+        return WillPopScope(
+          onWillPop: () async {
+            context.read<HomeBloc>().add(GoToHomeBlocInitial());
+            context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
+                pokelist: state.pokelist,
+                stopName: state.stopName,
+                wildPokemon: state.wildPokemon));
+            Navigator.pop(context);
+            return false;
+          },
+          child: Scaffold(
+            appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(20.0),
+                child: AppBar(
+                  primary: false,
+                  title: Text(
+                    state.stopName,
+                    style: const TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.white,
+                    ),
                   ),
+                  centerTitle: true,
+                  backgroundColor: Colors.green,
+                )),
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/arrêt_tram_nantes.png"),
+                  fit: BoxFit.cover,
                 ),
-                centerTitle: true,
-                backgroundColor: Colors.green,
-              )),
-          body: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/arrêt_tram_nantes.png"),
-                fit: BoxFit.cover,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 50.0),
+                    child: Stack(children: [
+                      Opacity(
+                          opacity: 0.6,
+                          child: SvgPicture.asset('assets/pokeball-grisee.svg')),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 100.0),
+                        child: Image.network(
+                          state.wildPokemon.pictureUrl,
+                          scale: 0.2,
+                        ),
+                      ),
+                    ]),
+                  ),
+        
+                  /*Expanded(
+                    child: ListView.builder(
+                        itemCount: state.pokelist.length,
+                        itemBuilder: (context, index) {
+                          Pokemon pokemon = state.pokelist[index];
+                          return Card(
+                            child: ListTile(
+                              title: Text(
+                                  "${pokemon.name}, niveau ${pokemon.level}"),
+                              trailing: Image.network(pokemon.pictureUrl),
+                              onTap: () {
+                                context
+                                    .read<AtStopBloc>()
+                                    .add(ChoosePokemon(pokemon: pokemon));
+                              },
+                            ),
+                          );
+                        }),
+                  ),*/
+                ],
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 50.0),
-                  child: Stack(children: [
-                    Opacity(
-                        opacity: 0.6,
-                        child: SvgPicture.asset('assets/pokeball-grisee.svg')),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 100.0),
-                      child: Image.network(
-                        state.wildPokemon.pictureUrl,
-                        scale: 0.2,
-                      ),
-                    ),
-                  ]),
-                ),
-
-                /*Expanded(
-                  child: ListView.builder(
-                      itemCount: state.pokelist.length,
-                      itemBuilder: (context, index) {
-                        Pokemon pokemon = state.pokelist[index];
-                        return Card(
-                          child: ListTile(
-                            title: Text(
-                                "${pokemon.name}, niveau ${pokemon.level}"),
-                            trailing: Image.network(pokemon.pictureUrl),
-                            onTap: () {
-                              context
-                                  .read<AtStopBloc>()
-                                  .add(ChoosePokemon(pokemon: pokemon));
-                            },
-                          ),
-                        );
-                      }),
-                ),*/
-              ],
-            ),
-          ),
-          floatingActionButton: SizedBox(
-            height: 70.0,
-            child: FittedBox(
-              child: FloatingActionButton(
-                onPressed: () {
-                  context.read<AtStopBloc>().add(const ChoosePokemon());
-                },
-                backgroundColor: Colors.red,
-                child: const Icon(
-                  Icons.bolt_sharp,
-                  size: 35,
+            floatingActionButton: SizedBox(
+              height: 70.0,
+              child: FittedBox(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    context.read<AtStopBloc>().add(const ChoosePokemon());
+                  },
+                  backgroundColor: Colors.red,
+                  child: const Icon(
+                    Icons.bolt_sharp,
+                    size: 35,
+                  ),
                 ),
               ),
             ),
@@ -123,7 +134,7 @@ class PokemonsAtStopView extends StatelessWidget {
                 pokelist: state.pokelist,
                 stopName: state.stopName,
                 wildPokemon: state.wildPokemon));
-            Navigator.pushNamed(context, "/");
+            Navigator.pop(context);//pushNamed(context, "/");
             return false;
           },
         );

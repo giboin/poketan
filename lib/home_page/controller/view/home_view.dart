@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
-import 'package:hackathon/owned_pokemons/presentation/view/owned_pokemons_view.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 import 'package:hackathon/widgets/pokeball_widget.dart';
@@ -62,7 +61,8 @@ class HomeView extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   if (state.nearAStop) {
-                    context.read<HomeBloc>().add(FindPokemon());
+                    Navigator.of(context).pushNamed('pokemon_at_stop');
+                    //context.read<HomeBloc>().add(FindPokemon());
                   }
                 },
                 child: PokeballWidget(

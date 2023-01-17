@@ -61,8 +61,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     on<FindPokemon>((event, emit) {
       // go to the fighting screen
-      print(state.toString());
-      print(state.responseJson);
       emit(HomeFoundPokemon(responseJson: state.responseJson!));
     });
 

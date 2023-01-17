@@ -5,9 +5,9 @@ class PokemonAdapter {
     required Map<String, dynamic> json,
   }) {
     return Pokemon(
-        name: json["name"].toString() ?? "Bulbazar",
+        name: json["name"] ?? "Bulbazar",
         level: json["lvl"] ?? 5,
-        pictureUrl: json["sprite_url"].toString() ??
+        pictureUrl: json["sprite_url"] ??
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
         pokedexId: json["pokedex_id"] ?? 5);
   }

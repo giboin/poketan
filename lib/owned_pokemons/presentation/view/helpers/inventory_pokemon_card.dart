@@ -42,7 +42,7 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
               IconButton(
                 onPressed: () {
                   List<Pokemon> newTeam = state.pokeTeam;
-                  if (isInTeam) {
+                  if (isInTeam && state.pokeTeam.length>1) {
                     newTeam.removeWhere(
                         (element) => element.pokedexId == widget.pokemon.pokedexId);
                         setState(() {
@@ -51,7 +51,7 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
                     context
                         .read<OwnedPokemonsBloc>()
                         .add(NewTeam(newTeam: newTeam));
-                  } else if (newTeam.length < 6) {
+                  } else if (!isInTeam && newTeam.length < 6) {
                     newTeam.add(widget.pokemon);
                     setState(() {
                       isInTeam=true;
