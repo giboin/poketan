@@ -173,7 +173,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => const HomeView(),
             'pokemon_at_stop': (context) => const PokemonsAtStopView(),
-            'owned_pokemons': (context) => OwnedPokemons(),
+            'owned_pokemons': (context) => const OwnedPokemons(),
           },
         ));
   }
