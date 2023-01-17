@@ -25,7 +25,7 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
           wildPokemon: state.wildPokemon));
     });
 
-    on<GoToInitialState>((event, emit) {
+    on<GoToAtStopBlocInitial>((event, emit) {
       emit(AtStopInitialState(
           pokelist: state.pokelist,
           stopName: state.stopName,

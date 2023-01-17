@@ -11,4 +11,4 @@ class FindPokemon extends HomeEvent {}
 
 class SendLocalisation extends HomeEvent {}
 
-class GoToHomeBlocInitialState extends HomeEvent {}
+class GoToHomeBlocInitial extends HomeEvent {}

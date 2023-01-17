@@ -17,10 +17,9 @@ class PokemonChosen extends AtStopEvent {
 }
 
 class ChoosePokemon extends AtStopEvent {
-
   const ChoosePokemon();
 }
 
-class GoToInitialState extends AtStopEvent {
-  const GoToInitialState();
+class GoToAtStopBlocInitial extends AtStopEvent {
+  const GoToAtStopBlocInitial();
 }

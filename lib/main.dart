@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
@@ -95,15 +97,12 @@ class _LoginState extends State<Login> {
               'You are not signed in',
               style: TextStyle(fontSize: 30),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-                onPressed: signIn,
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Sign in', style: TextStyle(fontSize: 30)),
-                )),
+            const SizedBox(height: 10,),
+            SignInButton(
+              Buttons.GoogleDark,
+              text: "Sign up with Google",
+              onPressed: signIn,
+            )
           ],
         ),
       );
