@@ -24,15 +24,17 @@ class AtStopInitialState extends AtStopState {
 class FightFinished extends AtStopState {
   final bool winner;
   final Pokemon chosenPokemon;
+  final int xpWon;
 
   const FightFinished(
       {required super.pokelist,
       required super.stopName,
       required super.wildPokemon,
       required this.chosenPokemon,
-      required this.winner});
+      required this.winner,
+      required this.xpWon});
 
   @override
   List<Object> get props =>
-      [pokelist, stopName, wildPokemon, chosenPokemon, winner];
+      [pokelist, stopName, wildPokemon, chosenPokemon, winner, xpWon];
 }

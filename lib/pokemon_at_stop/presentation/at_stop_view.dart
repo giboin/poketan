@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/screen/fight_result.dart';
 import 'package:hackathon/widgets/pokemon_to_fight.dart';
 
@@ -15,6 +16,16 @@ class PokemonsAtStopView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AtStopBloc, AtStopState>(listener: (context, state) {
       if (state is AtStopInitialState) {}
+      if (state is FightFinished) {
+        context
+            .read<OwnedPokemonsBloc>()
+            .add(PokemonChanged(pokemon: state.chosenPokemon));
+        if (state.winner) {
+          context
+              .read<OwnedPokemonsBloc>()
+              .add(NewPokemon(pokemon: state.wildPokemon));
+        }
+      }
     }, builder: (context, state) {
       if (state is AtStopInitialState) {
         return Scaffold(
@@ -105,7 +116,9 @@ class PokemonsAtStopView extends StatelessWidget {
       }
       if (state is FightFinished) {
         return FightResultScreen(
-            pokemon: state.chosenPokemon, hasWin: state.winner);
+            pokemon: state.chosenPokemon,
+            hasWin: state.winner,
+            xpEarned: state.xpWon);
       } else {
         return const Text('this is not exactly the ideal state');
       }
