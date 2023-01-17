@@ -79,7 +79,11 @@ class _FightDialogState extends State<FightDialog> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              context.read<AtStopBloc>().add(const GoToAtStopBlocInitial());
+              AtStopState state = context.read<AtStopBloc>().state;
+              context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
+                  pokelist: state.pokelist,
+                  wildPokemon: state.wildPokemon,
+                  stopName: state.stopName));
             },
             child: const Text(
               'Annuler',

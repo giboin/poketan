@@ -119,7 +119,10 @@ class PokemonsAtStopView extends StatelessWidget {
               xpEarned: state.xpWon),
           onWillPop: () async {
             context.read<HomeBloc>().add(GoToHomeBlocInitial());
-            context.read<AtStopBloc>().add(const GoToAtStopBlocInitial());
+            context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
+                pokelist: state.pokelist,
+                stopName: state.stopName,
+                wildPokemon: state.wildPokemon));
             Navigator.pushNamed(context, "/");
             return false;
           },
@@ -129,7 +132,10 @@ class PokemonsAtStopView extends StatelessWidget {
         return WillPopScope(
           child: FightDialog(atStopState: state),
           onWillPop: () async {
-            context.read<AtStopBloc>().add(const GoToAtStopBlocInitial());
+            context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
+                pokelist: state.pokelist,
+                wildPokemon: state.wildPokemon,
+                stopName: state.stopName));
             return false;
           },
         );
