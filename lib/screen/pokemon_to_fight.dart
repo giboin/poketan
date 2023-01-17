@@ -16,77 +16,70 @@ class FightDialog extends StatefulWidget {
 class _FightDialogState extends State<FightDialog> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: AlertDialog(
-        insetPadding: const EdgeInsets.all(0),
-        icon: const Icon(
-          Icons.bolt_sharp,
-          size: 50.0,
-          color: Colors.amber,
-        ),
-        title: Text(
-          '${widget.atStopState.wildPokemon.name} - level ${widget.atStopState.wildPokemon.level}',
-          style: const TextStyle(fontSize: 25.0),
-        ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 0, vertical: 30.0),
-        content: Column(
-          children: [
-            const Text(
-              'Avec qui vaincre ce pokémon ?',
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15.0),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Expanded(
-              child: Container(
-                width: 600.0,
-                margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: ListView.builder(
-                    itemCount: widget.atStopState.pokelist.length,
-                    itemBuilder: (context, index) {
-                      Pokemon pokemon = widget.atStopState.pokelist[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: Card(
-                          color: Colors.yellow,
-                          child: ListTile(
-                            title: Text(
-                              "${pokemon.name}, niveau ${pokemon.level}",
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w500),
+    return Material(
+        child:Column(
+            children: [
+              const Icon(
+            Icons.bolt_sharp,
+            size: 50.0,
+            color: Colors.amber,
+          ),
+          Image.network(widget.atStopState.wildPokemon.pictureUrl),
+          Text(
+            '${widget.atStopState.wildPokemon.name} - level ${widget.atStopState.wildPokemon.level}',
+            style: const TextStyle(fontSize: 25.0),
+          ),
+          const Padding(padding: EdgeInsets.all(10)),
+              const Text(
+                'Avec qui vaincre ce pokémon ?',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 15.0),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Expanded(
+                child: Container(
+                  width: 600.0,
+                  margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: ListView.builder(
+                      itemCount: widget.atStopState.pokelist.length,
+                      itemBuilder: (context, index) {
+                        Pokemon pokemon = widget.atStopState.pokelist[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: Card(
+                            color: Colors.yellow,
+                            child: ListTile(
+                              title: Text(
+                                "${pokemon.name}, niveau ${pokemon.level}",
+                                style:
+                                    const TextStyle(fontWeight: FontWeight.w500),
+                              ),
+                              trailing: Image.network(pokemon.pictureUrl),
+                              onTap: () {
+                                context
+                                    .read<AtStopBloc>()
+                                    .add(PokemonChosen(pokemon: pokemon));
+                              },
                             ),
-                            trailing: Image.network(pokemon.pictureUrl),
-                            onTap: () {
-                              context
-                                  .read<AtStopBloc>()
-                                  .add(PokemonChosen(pokemon: pokemon));
-                            },
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                ),
+              ),
+              TextButton(
+              onPressed: () {
+                context.read<AtStopBloc>().add(const GoToAtStopBlocInitial());
+              },
+              child: const Text(
+                'Annuler',
+                style: TextStyle(color: Colors.red, fontSize: 15.0),
               ),
             ),
           ],
-        ),
-        actionsPadding: const EdgeInsets.only(bottom: 10.0, right: 20.0),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              context.read<AtStopBloc>().add(const GoToAtStopBlocInitial());
-            },
-            child: const Text(
-              'Annuler',
-              style: TextStyle(color: Colors.red, fontSize: 15.0),
-            ),
-          ),
-        ],
       ),
     );
   }

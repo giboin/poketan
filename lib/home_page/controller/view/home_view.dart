@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state is HomeFoundPokemon) {
-          Navigator.of(context).pushNamed('pokemon_at_stop');
+          // Navigator.of(context).pushNamed('pokemon_at_stop');
         }
       },
       builder: (context, state) {
@@ -39,7 +39,8 @@ class HomeView extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   if (state.nearAStop) {
-                    context.read<HomeBloc>().add(FindPokemon());
+                    Navigator.of(context).pushNamed('pokemon_at_stop');
+                    //context.read<HomeBloc>().add(FindPokemon());
                   }
                 },
                 child: PokeballWidget(

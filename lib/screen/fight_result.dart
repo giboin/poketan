@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
-import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
-class FightResultScreen extends StatefulWidget {
+class FightResultScreen extends StatelessWidget {
   final Pokemon pokemon;
   final bool hasWin;
   final int xpEarned;
@@ -18,15 +17,10 @@ class FightResultScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<FightResultScreen> createState() => _FightResultScreenState();
-}
-
-class _FightResultScreenState extends State<FightResultScreen> {
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: widget.hasWin ? Colors.green : Colors.red,
+        backgroundColor: hasWin ? Colors.green : Colors.red,
         body: Center(
           child: Column(
             children: [
@@ -61,7 +55,7 @@ class _FightResultScreenState extends State<FightResultScreen> {
                 height: 55.0,
               ),
               Text(
-                widget.hasWin ? 'You won' : 'You lose',
+                hasWin ? 'You won' : 'You lose',
                 style: const TextStyle(
                     fontSize: 50.0,
                     fontStyle: FontStyle.italic,
@@ -69,11 +63,11 @@ class _FightResultScreenState extends State<FightResultScreen> {
                     color: Colors.white),
               ),
               Image.network(
-                widget.pokemon.pictureUrl,
+                pokemon.pictureUrl,
                 scale: 0.3,
               ),
               Text(
-                '${widget.xpEarned} xp earned',
+                '$xpEarned xp earned',
                 style: const TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
@@ -81,39 +75,13 @@ class _FightResultScreenState extends State<FightResultScreen> {
                 ),
               ),
               Text(
-                '${widget.pokemon.name} at level ${widget.pokemon.level}',
+                '${pokemon.name} at level ${pokemon.level}',
                 style: const TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              Container(
-                width: 250,
-                margin: const EdgeInsets.only(top: 100.0),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          widget.hasWin ? Colors.red : Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 7.0, horizontal: 10.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Icon(
-                        Icons.keyboard_return_outlined,
-                        size: 30,
-                      ),
-                      SizedBox(width: 10.0),
-                      Text(
-                        'Refaire un combat',
-                        style: TextStyle(fontSize: 22.0),
-                      ),
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ),
