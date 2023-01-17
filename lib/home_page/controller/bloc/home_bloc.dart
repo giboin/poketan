@@ -19,6 +19,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       : super(const HomeInitial(
           nearAStop: false,
         )) {
+    on<GoToHomeBlocInitial>((event, emit) {
+      emit(const HomeInitial(nearAStop: false));
+    });
     on<SendLocalisation>((event, emit) async {
       // get the user localisation
       // source : https://www.fluttercampus.com/guide/212/get-gps-location/

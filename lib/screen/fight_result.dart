@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
+import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
 class FightResultScreen extends StatefulWidget {
   final Pokemon pokemon;
@@ -34,10 +37,17 @@ class _FightResultScreenState extends State<FightResultScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeView())),
+                      onPressed: () {
+                        context
+                            .read<AtStopBloc>()
+                            .add(const GoToAtStopBlocInitial());
+                        context.read<HomeBloc>().add(GoToHomeBlocInitial());
+                        Navigator.pushNamed(context, '/');
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const HomeView()));
+                      },
                       icon: const Icon(
                         Icons.home,
                         color: Colors.white,
