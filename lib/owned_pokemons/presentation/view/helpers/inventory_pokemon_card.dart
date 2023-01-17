@@ -20,59 +20,63 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
   Widget build(BuildContext context) {
     return BlocBuilder<OwnedPokemonsBloc, OwnedPokemonsState>(
         builder: (context, state) {
-      bool isInTeam = state.pokeTeam
-          .map((e) => e.pokedexId)
-          .contains(widget.pokemon.pokedexId);
-      return Stack(
-        alignment: Alignment.center,
-        children: [
-          Stack(
-            alignment: Alignment.topRight,
-            children: [
-              SizedBox(
-                height: 160,
-                width: 160,
-                child: Card(
-                  child: Column(
-                    children: [
-                      Image.network(widget.pokemon.pictureUrl),
-                      Text(
-                          "${widget.pokemon.name} niveau ${widget.pokemon.level}")
-                    ],
+      if (state is PokemonUpdated) {
+        bool isInTeam = state.pokeTeam
+            .map((e) => e.pokedexId)
+            .contains(widget.pokemon.pokedexId);
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.topRight,
+              children: [
+                SizedBox(
+                  height: 160,
+                  width: 160,
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Image.network(widget.pokemon.pictureUrl),
+                        Text(
+                            "${widget.pokemon.name} niveau ${widget.pokemon.level}")
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {
-                  List<Pokemon> newTeam = state.pokeTeam;
-                  if (isInTeam && state.pokeTeam.length > 1) {
-                    newTeam.removeWhere((element) =>
-                        element.pokedexId == widget.pokemon.pokedexId);
-                    setState(() {
-                      isInTeam = false;
-                    });
-                    context
-                        .read<OwnedPokemonsBloc>()
-                        .add(NewTeam(newTeam: newTeam));
-                  } else if (!isInTeam && newTeam.length < 6) {
-                    newTeam.add(widget.pokemon);
-                    setState(() {
-                      isInTeam = true;
-                    });
-                    context
-                        .read<OwnedPokemonsBloc>()
-                        .add(NewTeam(newTeam: newTeam));
-                  }
-                },
-                icon: Icon(
-                  Icons.star,
-                  color: isInTeam ? Colors.amber : Colors.grey,
+                IconButton(
+                  onPressed: () {
+                    List<Pokemon> newTeam = state.pokeTeam;
+                    if (isInTeam && state.pokeTeam.length > 1) {
+                      newTeam.removeWhere((element) =>
+                          element.pokedexId == widget.pokemon.pokedexId);
+                      setState(() {
+                        isInTeam = false;
+                      });
+                      context
+                          .read<OwnedPokemonsBloc>()
+                          .add(NewTeam(newTeam: newTeam));
+                    } else if (!isInTeam && newTeam.length < 6) {
+                      newTeam.add(widget.pokemon);
+                      setState(() {
+                        isInTeam = true;
+                      });
+                      context
+                          .read<OwnedPokemonsBloc>()
+                          .add(NewTeam(newTeam: newTeam));
+                    }
+                  },
+                  icon: Icon(
+                    Icons.star,
+                    color: isInTeam ? Colors.amber : Colors.grey,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
-      );
+              ],
+            ),
+          ],
+        );
+      } else {
+        return Text("${state.runtimeType}");
+      }
     });
   }
 }

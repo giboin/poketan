@@ -40,8 +40,13 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
       };
 
       String encodedBody = jsonEncode(body);
-      http.Response res = await http.post(Uri.parse('$serverUrl/fight'),
-          headers: {"Content-Type": "application/json"}, body: encodedBody);
+      http.Response res = await http.post(
+        Uri.parse('$serverUrl/fight'),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: encodedBody,
+      );
       Map<String, dynamic> json = jsonDecode(res.body);
       if (kDebugMode) {
         print(json);
@@ -51,18 +56,19 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
       event.pokemon.xp = json["new_lvl"];
 
       Pokemon updatedPokemon = Pokemon.withXp(
-          level: json["new_lvl"],
-          name: event.pokemon.name,
-          pictureUrl: event.pokemon.pictureUrl,
-          xp: json["new_xp"],
-          pokedexId: event.pokemon.pokedexId);
-      List<Pokemon> newPokelist = event.pokelist.map<Pokemon>((e) {
-        if (e.name == event.pokemon.name) {
-          return event.pokemon;
-        } else {
-          return e;
-        }
-      }).toList();
+        level: json["new_lvl"],
+        name: event.pokemon.name,
+        pictureUrl: event.pokemon.pictureUrl,
+        xp: json["new_xp"],
+        pokedexId: event.pokemon.pokedexId,
+      );
+      // List<Pokemon> newPokelist = event.pokelist.map<Pokemon>((e) {
+      //   if (e.name == event.pokemon.name) {
+      //     return event.pokemon;
+      //   } else {
+      //     return e;
+      //   }
+      // }).toList();
       emit(FightFinished(
         stopName: state.stopName,
         wildPokemon: state.wildPokemon,

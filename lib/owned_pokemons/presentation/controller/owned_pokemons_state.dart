@@ -1,20 +1,21 @@
 part of 'owned_pokemons_bloc.dart';
 
 abstract class OwnedPokemonsState extends Equatable {
-  final List<Pokemon> pokeTeam;
-  final List<Pokemon> pokeList;
-
-  const OwnedPokemonsState({required this.pokeList, required this.pokeTeam});
-
-  @override
-  List<Object> get props => [pokeList, pokeTeam];
+  const OwnedPokemonsState();
 }
 
-class OwnedPokemonsInitial extends OwnedPokemonsState {
-  const OwnedPokemonsInitial(
-      {required super.pokeList, required super.pokeTeam});
+class OwnedPokemonsChooseStarter extends OwnedPokemonsState {
+  const OwnedPokemonsChooseStarter();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class PokemonUpdated extends OwnedPokemonsState {
-  const PokemonUpdated({required super.pokeList, required super.pokeTeam});
+  final List<Pokemon> pokeList;
+  final List<Pokemon> pokeTeam;
+
+  const PokemonUpdated({required this.pokeList, required this.pokeTeam});
+  @override
+  List<Object> get props => [pokeList, pokeTeam];
 }

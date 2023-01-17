@@ -11,10 +11,10 @@ class PickStarterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: (){
-         context.read<OwnedPokemonsBloc>().add(NewPokemon(pokemon: pokemon));
-         List<Pokemon> initialTeam = [pokemon];
-         context.read<OwnedPokemonsBloc>().add(NewTeam(newTeam: initialTeam));
+      onPressed: () {
+        context.read<OwnedPokemonsBloc>().add(NewPokemon(pokemon: pokemon));
+        List<Pokemon> initialTeam = [pokemon];
+        context.read<OwnedPokemonsBloc>().add(NewTeam(newTeam: initialTeam));
       },
       child: Stack(
         alignment: Alignment.center,

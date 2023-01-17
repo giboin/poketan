@@ -138,7 +138,6 @@ class MyApp extends StatelessWidget {
           BlocProvider<OwnedPokemonsBloc>(
               lazy: false, create: ((context) => OwnedPokemonsBloc())),
           BlocProvider<AtStopBloc>(create: (context) {
-            // TODO: wtf ???
             Map<String, dynamic> json =
                 context.read<HomeBloc>().state.responseJson ??
                     {
@@ -150,8 +149,9 @@ class MyApp extends StatelessWidget {
                       },
                       'stop_name': 'tan_stop'
                     };
+            OwnedPokemonsState state = context.read<OwnedPokemonsBloc>().state;
             List<Pokemon> pokelist =
-                context.read<OwnedPokemonsBloc>().state.pokeTeam;
+                (state is PokemonUpdated) ? state.pokeTeam : [];
             return AtStopBloc(
               stopName: json["stop_name"].toString(),
               wildPokemon: PokemonAdapter.fromJson(json: json["pokemon_data"]),

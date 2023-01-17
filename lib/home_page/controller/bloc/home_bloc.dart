@@ -40,11 +40,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
       }
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-      if (kDebugMode) {
-        print(position.longitude);
-        print(position.latitude);
-      }
+        desiredAccuracy: LocationAccuracy.best,
+      );
 
       double long = position.longitude;
       double lat = position.latitude;

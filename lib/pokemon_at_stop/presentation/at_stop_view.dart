@@ -16,7 +16,9 @@ class PokemonsAtStopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Pokemon> pokeList = context.read<OwnedPokemonsBloc>().state.pokeList;
+    OwnedPokemonsState state = context.read<OwnedPokemonsBloc>().state;
+
+    List<Pokemon> pokeList = (state is PokemonUpdated) ? state.pokeList : [];
 
     return BlocConsumer<AtStopBloc, AtStopState>(listener: (context, state) {
       if (state is AtStopInitialState) {}
@@ -36,9 +38,10 @@ class PokemonsAtStopView extends StatelessWidget {
           onWillPop: () async {
             context.read<HomeBloc>().add(GoToHomeBlocInitial());
             context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: pokeList,
-                stopName: state.stopName,
-                wildPokemon: state.wildPokemon));
+                  pokelist: pokeList,
+                  stopName: state.stopName,
+                  wildPokemon: state.wildPokemon,
+                ));
             Navigator.pop(context);
             return false;
           },
@@ -129,6 +132,15 @@ class PokemonsAtStopView extends StatelessWidget {
         );
       }
       if (state is FightFinished) {
+        // if (state.winner) {
+        //   context
+        //       .read<OwnedPokemonsBloc>()
+        //       .add(NewPokemon(pokemon: state.wildPokemon));
+        //   context
+        //       .read<OwnedPokemonsBloc>()
+        //       .add(PokemonChanged(pokemon: state.chosenPokemon));
+        // }
+
         return WillPopScope(
           child: FightResultScreen(
               pokemon: state.chosenPokemon,
@@ -137,9 +149,10 @@ class PokemonsAtStopView extends StatelessWidget {
           onWillPop: () async {
             context.read<HomeBloc>().add(GoToHomeBlocInitial());
             context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: pokeList,
-                stopName: state.stopName,
-                wildPokemon: state.wildPokemon));
+                  pokelist: pokeList,
+                  stopName: state.stopName,
+                  wildPokemon: state.wildPokemon,
+                ));
             Navigator.pop(context); //pushNamed(context, "/");
             return false;
           },

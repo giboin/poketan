@@ -35,7 +35,8 @@ class OwnedPokemons extends StatelessWidget {
 
     return BlocBuilder<OwnedPokemonsBloc, OwnedPokemonsState>(
         builder: (context, state) {
-      if (state is OwnedPokemonsInitial) {
+      print('state type : ${state.runtimeType}');
+      if (state is OwnedPokemonsChooseStarter) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () => Navigator.pop(context),
@@ -70,7 +71,8 @@ class OwnedPokemons extends StatelessWidget {
             ),
           ),
         );
-      } else {
+      }
+      if (state is PokemonUpdated) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () => Navigator.pop(context),
@@ -108,6 +110,8 @@ class OwnedPokemons extends StatelessWidget {
             ),
           ),
         );
+      } else {
+        return Text("${state.runtimeType}");
       }
     });
   }

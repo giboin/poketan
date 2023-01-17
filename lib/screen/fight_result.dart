@@ -19,7 +19,8 @@ class FightResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Pokemon> pokeList = context.read<OwnedPokemonsBloc>().state.pokeList;
+    List<Pokemon> pokeList =
+        (context.read<OwnedPokemonsBloc>().state as PokemonUpdated).pokeList;
     return SafeArea(
       child: Scaffold(
         backgroundColor: hasWin ? Colors.green : Colors.red,
