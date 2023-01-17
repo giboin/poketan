@@ -21,6 +21,13 @@ class AtStopInitialState extends AtStopState {
       required super.wildPokemon});
 }
 
+class ChoosingPokemon extends AtStopState {
+  const ChoosingPokemon(
+      {required super.pokelist,
+      required super.stopName,
+      required super.wildPokemon});
+}
+
 class FightFinished extends AtStopState {
   final bool winner;
   final Pokemon chosenPokemon;
