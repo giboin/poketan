@@ -5,9 +5,11 @@ class InventoryPokemonCard extends StatelessWidget {
   const InventoryPokemonCard({
     Key? key,
     required this.pokemon,
+    required this.team,
   }) : super(key: key);
 
   final Pokemon pokemon;
+  final bool team;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class InventoryPokemonCard extends StatelessWidget {
         child: Column(
           children: [
             Image.network(pokemon.pictureUrl),
-            Text("${pokemon.name} niveau ${pokemon.level}")
+            Text("${pokemon.name} niveau ${pokemon.level}", style: TextStyle(fontStyle: team?FontStyle.italic:FontStyle.normal),)
           ],
         ),
       

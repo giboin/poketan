@@ -18,7 +18,21 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
       required List<Pokemon> pokelist})
       : super(AtStopInitialState(
             stopName: stopName, wildPokemon: wildPokemon, pokelist: pokelist)) {
-    on<ChoosePokemon>((event, emit) async {
+    on<ChoosePokemon>((event, emit) {
+      emit(ChoosingPokemon(
+          pokelist: state.pokelist,
+          stopName: state.stopName,
+          wildPokemon: state.wildPokemon));
+    });
+
+    on<GoToAtStopBlocInitial>((event, emit) {
+      emit(AtStopInitialState(
+          pokelist: state.pokelist,
+          stopName: state.stopName,
+          wildPokemon: state.wildPokemon));
+    });
+
+    on<PokemonChosen>((event, emit) async {
       Map<String, dynamic> body = {
         'owned_pokemon': event.pokemon.toMap(),
         'wild_pokemon': wildPokemon.toMap(),

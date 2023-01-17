@@ -10,3 +10,5 @@ abstract class HomeEvent extends Equatable {
 class FindPokemon extends HomeEvent {}
 
 class SendLocalisation extends HomeEvent {}
+
+class GoToHomeBlocInitial extends HomeEvent {}

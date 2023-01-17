@@ -66,24 +66,6 @@ class OwnedPokemonsBloc
                   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"),
         ], pokeTeam: [
           Pokemon(
-              name: "Salamouche",
-              level: 2,
-              pokedexId: 4,
-              pictureUrl:
-                  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"),
-          Pokemon(
-              name: "Bulbazar",
-              level: 50,
-              pokedexId: 1,
-              pictureUrl:
-                  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"),
-          Pokemon(
-              name: "Carapute",
-              level: 37,
-              pokedexId: 7,
-              pictureUrl:
-                  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"),
-          Pokemon(
               name: "Doudoudou",
               level: 5,
               pokedexId: 39,

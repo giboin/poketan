@@ -63,10 +63,9 @@ class _FightDialogState extends State<FightDialog> {
                             ),
                             trailing: Image.network(pokemon.pictureUrl),
                             onTap: () {
-                              Navigator.pop(context);
                               context
                                   .read<AtStopBloc>()
-                                  .add(ChoosePokemon(pokemon: pokemon));
+                                  .add(PokemonChosen(pokemon: pokemon));
                             },
                           ),
                         ),
@@ -80,8 +79,7 @@ class _FightDialogState extends State<FightDialog> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
-              setState(() {});
+              context.read<AtStopBloc>().add(const GoToAtStopBlocInitial());
             },
             child: const Text(
               'Annuler',
