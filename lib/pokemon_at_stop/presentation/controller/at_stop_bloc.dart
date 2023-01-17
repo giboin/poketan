@@ -53,13 +53,14 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
           pictureUrl: event.pokemon.pictureUrl,
           xp: json["new_xp"],
           pokedexId: event.pokemon.pokedexId);
-      List<Pokemon> newPokelist = pokelist.map<Pokemon>((e) {
-        if (e.name == event.pokemon.name) {
-          return event.pokemon;
-        } else {
-          return e;
-        }
-      }).toList();
+      // List<Pokemon> newPokelist = pokelist.map<Pokemon>((e) {
+      //   if (e.name == event.pokemon.name) {
+      //     return event.pokemon;
+      //   } else {
+      //     return e;
+      //   }
+      // }).toList();
+
       emit(FightFinished(
           stopName: state.stopName,
           wildPokemon: state.wildPokemon,

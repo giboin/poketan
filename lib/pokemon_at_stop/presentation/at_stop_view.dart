@@ -122,6 +122,11 @@ class PokemonsAtStopView extends StatelessWidget {
         );
       }
       if (state is FightFinished) {
+        if(state.winner){
+          context.read<OwnedPokemonsBloc>().add(NewPokemon(pokemon: state.wildPokemon));
+          context.read<OwnedPokemonsBloc>().add(PokemonChanged(pokemon: state.chosenPokemon));
+        }
+
         return WillPopScope(
           child: FightResultScreen(
               pokemon: state.chosenPokemon,

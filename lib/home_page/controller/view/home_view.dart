@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
-import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 import 'package:hackathon/widgets/pokeball_widget.dart';
-
-import '../../../pokemon_at_stop/domain/pokemon.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -26,9 +23,6 @@ class HomeView extends StatelessWidget {
                 },
                 'stop_name': 'tan_stop'
               };
-
-          List<Pokemon> pokelist =
-              context.read<OwnedPokemonsBloc>().state.pokeList;
           context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
               wildPokemon: PokemonAdapter.fromJson(json: json["pokemon_data"]),
               stopName: json["stop_name"].toString()));
