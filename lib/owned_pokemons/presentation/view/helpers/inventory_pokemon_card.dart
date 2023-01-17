@@ -19,8 +19,10 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OwnedPokemonsBloc, OwnedPokemonsState>(
-     builder:(context, state) {
-      bool isInTeam = state.pokeTeam.map((e) => e.pokedexId).contains(widget.pokemon.pokedexId);
+        builder: (context, state) {
+      bool isInTeam = state.pokeTeam
+          .map((e) => e.pokedexId)
+          .contains(widget.pokemon.pokedexId);
       return Stack(
         alignment: Alignment.center,
         children: [
@@ -34,7 +36,8 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
                   child: Column(
                     children: [
                       Image.network(widget.pokemon.pictureUrl),
-                      Text("${widget.pokemon.name} niveau ${widget.pokemon.level}")
+                      Text(
+                          "${widget.pokemon.name} niveau ${widget.pokemon.level}")
                     ],
                   ),
                 ),
@@ -42,11 +45,11 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
               IconButton(
                 onPressed: () {
                   List<Pokemon> newTeam = state.pokeTeam;
-                  if (isInTeam && state.pokeTeam.length>1) {
-                    newTeam.removeWhere(
-                        (element) => element.pokedexId == widget.pokemon.pokedexId);
-                        setState(() {
-                      isInTeam=false;
+                  if (isInTeam && state.pokeTeam.length > 1) {
+                    newTeam.removeWhere((element) =>
+                        element.pokedexId == widget.pokemon.pokedexId);
+                    setState(() {
+                      isInTeam = false;
                     });
                     context
                         .read<OwnedPokemonsBloc>()
@@ -54,7 +57,7 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
                   } else if (!isInTeam && newTeam.length < 6) {
                     newTeam.add(widget.pokemon);
                     setState(() {
-                      isInTeam=true;
+                      isInTeam = true;
                     });
                     context
                         .read<OwnedPokemonsBloc>()
@@ -63,17 +66,13 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
                 },
                 icon: Icon(
                   Icons.star,
-                  color:
-                      isInTeam
-                          ? Colors.amber
-                          : Colors.grey,
+                  color: isInTeam ? Colors.amber : Colors.grey,
                 ),
               ),
             ],
           ),
         ],
       );
-      }
-    );
+    });
   }
 }

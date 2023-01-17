@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
+import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:hackathon/screen/fight_result.dart';
 import 'package:hackathon/screen/pokemon_to_fight.dart';
 
@@ -15,6 +16,8 @@ class PokemonsAtStopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Pokemon> pokeList = context.read<OwnedPokemonsBloc>().state.pokeList;
+
     return BlocConsumer<AtStopBloc, AtStopState>(listener: (context, state) {
       if (state is AtStopInitialState) {}
       if (state is FightFinished) {
@@ -22,7 +25,7 @@ class PokemonsAtStopView extends StatelessWidget {
             .read<OwnedPokemonsBloc>()
             .add(PokemonChanged(pokemon: state.chosenPokemon));
         if (state.winner) {
-            context
+          context
               .read<OwnedPokemonsBloc>()
               .add(NewPokemon(pokemon: state.wildPokemon));
         }
@@ -33,7 +36,7 @@ class PokemonsAtStopView extends StatelessWidget {
           onWillPop: () async {
             context.read<HomeBloc>().add(GoToHomeBlocInitial());
             context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: state.pokelist,
+                pokelist: pokeList,
                 stopName: state.stopName,
                 wildPokemon: state.wildPokemon));
             Navigator.pop(context);
@@ -71,7 +74,8 @@ class PokemonsAtStopView extends StatelessWidget {
                     child: Stack(children: [
                       Opacity(
                           opacity: 0.6,
-                          child: SvgPicture.asset('assets/pokeball-grisee.svg')),
+                          child:
+                              SvgPicture.asset('assets/pokeball-grisee.svg')),
                       Padding(
                         padding: const EdgeInsets.only(top: 100.0),
                         child: Image.network(
@@ -81,7 +85,7 @@ class PokemonsAtStopView extends StatelessWidget {
                       ),
                     ]),
                   ),
-        
+
                   /*Expanded(
                     child: ListView.builder(
                         itemCount: state.pokelist.length,
@@ -109,7 +113,9 @@ class PokemonsAtStopView extends StatelessWidget {
               child: FittedBox(
                 child: FloatingActionButton(
                   onPressed: () {
-                    context.read<AtStopBloc>().add(const ChoosePokemon());
+                    context
+                        .read<AtStopBloc>()
+                        .add(ChoosePokemon(pokelist: pokeList));
                   },
                   backgroundColor: Colors.red,
                   child: const Icon(
@@ -131,10 +137,10 @@ class PokemonsAtStopView extends StatelessWidget {
           onWillPop: () async {
             context.read<HomeBloc>().add(GoToHomeBlocInitial());
             context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: state.pokelist,
+                pokelist: pokeList,
                 stopName: state.stopName,
                 wildPokemon: state.wildPokemon));
-            Navigator.pop(context);//pushNamed(context, "/");
+            Navigator.pop(context); //pushNamed(context, "/");
             return false;
           },
         );
@@ -144,7 +150,7 @@ class PokemonsAtStopView extends StatelessWidget {
           child: FightDialog(atStopState: state),
           onWillPop: () async {
             context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                pokelist: state.pokelist,
+                pokelist: pokeList,
                 wildPokemon: state.wildPokemon,
                 stopName: state.stopName));
             return false;

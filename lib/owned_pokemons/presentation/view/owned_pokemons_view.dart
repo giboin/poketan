@@ -6,34 +6,36 @@ import 'package:hackathon/owned_pokemons/presentation/view/helpers/pick_starter_
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 
 class OwnedPokemons extends StatelessWidget {
-  const OwnedPokemons({super.key});
+  OwnedPokemons({super.key});
+
+  final List<Pokemon> starters = [
+    Pokemon(
+        name: "Bulbizarre",
+        level: 5,
+        pictureUrl:
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+        pokedexId: 1),
+    Pokemon(
+        name: "Salamèche",
+        level: 5,
+        pictureUrl:
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+        pokedexId: 4),
+    Pokemon(
+        name: "Carapuce",
+        level: 5,
+        pictureUrl:
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+        pokedexId: 7),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    List<Pokemon> starters = [
-      Pokemon(
-          name: "Bulbizarre",
-          level: 5,
-          pictureUrl:
-              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-          pokedexId: 1),
-      Pokemon(
-          name: "Salamèche",
-          level: 5,
-          pictureUrl:
-              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
-          pokedexId: 4),
-      Pokemon(
-          name: "Carapuce",
-          level: 5,
-          pictureUrl:
-              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
-          pokedexId: 7),
-    ];
     //List<Pokemon> myTeam = context.read<OwnedPokemonsBloc>().state.pokeTeam;
 
-    return BlocBuilder<OwnedPokemonsBloc, OwnedPokemonsState>(builder: (context, state) {
-      if (state is OwnedPokemonsInitial){
+    return BlocBuilder<OwnedPokemonsBloc, OwnedPokemonsState>(
+        builder: (context, state) {
+      if (state is OwnedPokemonsInitial) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () => Navigator.pop(context),
@@ -68,8 +70,7 @@ class OwnedPokemons extends StatelessWidget {
             ),
           ),
         );
-      }
-      else {
+      } else {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () => Navigator.pop(context),
@@ -82,35 +83,28 @@ class OwnedPokemons extends StatelessWidget {
                 image: AssetImage("assets/ronflex_background.png"),
               ),
             ),
-            child: BlocConsumer<OwnedPokemonsBloc, OwnedPokemonsState>(
-              listener: (context, state) {
-                //myTeam = state.pokeTeam;
-              },
-              builder: (context, state) {
-                return SafeArea(
-                  child: Column(children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
-                      child: Text(
-                        "Mes Pokemouns",
-                        style: TextStyle(fontSize: 30, color: Colors.black),
-                      ),
-                    ),
-                    Expanded(
-                      child: GridView.builder(
-                          itemCount: state.pokeList.length,
-                          gridDelegate:
+            child: SafeArea(
+              child: Column(children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
+                  child: Text(
+                    "Mes Pokemouns",
+                    style: TextStyle(fontSize: 30, color: Colors.black),
+                  ),
+                ),
+                Expanded(
+                  child: GridView.builder(
+                      itemCount: state.pokeList.length,
+                      gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                          ),
-                          itemBuilder: (ctx, int index) {
-                            return InventoryPokemonCard(
-                                pokemon: state.pokeList[index]);
-                          }),
-                    ),
-                  ]),
-                );
-              },
+                        crossAxisCount: 2,
+                      ),
+                      itemBuilder: (ctx, int index) {
+                        return InventoryPokemonCard(
+                            pokemon: state.pokeList[index]);
+                      }),
+                ),
+              ]),
             ),
           ),
         );

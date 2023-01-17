@@ -24,7 +24,7 @@ Future<void> main() async {
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: Directory("$temporaryPath/hydrated_bloc_storage"));
   runApp(const MaterialApp(
-    home: Login(),
+    home: MyApp(),
   ));
 }
 
@@ -138,6 +138,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<OwnedPokemonsBloc>(
               lazy: false, create: ((context) => OwnedPokemonsBloc())),
           BlocProvider<AtStopBloc>(create: (context) {
+            // TODO: wtf ???
             Map<String, dynamic> json =
                 context.read<HomeBloc>().state.responseJson ??
                     {
@@ -154,7 +155,6 @@ class MyApp extends StatelessWidget {
             return AtStopBloc(
               stopName: json["stop_name"].toString(),
               wildPokemon: PokemonAdapter.fromJson(json: json["pokemon_data"]),
-              pokelist: pokelist,
             );
           }),
         ],
@@ -167,7 +167,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => const HomeView(),
             'pokemon_at_stop': (context) => const PokemonsAtStopView(),
-            'owned_pokemons': (context) => const OwnedPokemons(),
+            'owned_pokemons': (context) => OwnedPokemons(),
           },
         ));
   }

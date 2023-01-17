@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
+import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
@@ -18,6 +19,7 @@ class FightResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Pokemon> pokeList = context.read<OwnedPokemonsBloc>().state.pokeList;
     return SafeArea(
       child: Scaffold(
         backgroundColor: hasWin ? Colors.green : Colors.red,
@@ -34,11 +36,14 @@ class FightResultScreen extends StatelessWidget {
                       onPressed: () {
                         AtStopState state = context.read<AtStopBloc>().state;
                         context.read<AtStopBloc>().add(GoToAtStopBlocInitial(
-                            pokelist: state.pokelist,
-                            wildPokemon: state.wildPokemon,
-                            stopName: state.stopName));
+                              pokelist: pokeList,
+                              wildPokemon: state.wildPokemon,
+                              stopName: state.stopName,
+                            ));
                         context.read<HomeBloc>().add(GoToHomeBlocInitial());
-                        Navigator.pushNamed(context, '/');
+                        // Navigator.pushNamed(context, '/');
+                        Navigator.popUntil(context,
+                            (route) => ModalRoute.withName('/')(route));
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(

@@ -1,31 +1,30 @@
 part of 'at_stop_bloc.dart';
 
 abstract class AtStopState extends Equatable {
-  final List<Pokemon> pokelist;
   final String stopName;
   final Pokemon wildPokemon;
 
-  const AtStopState(
-      {required this.pokelist,
-      required this.stopName,
-      required this.wildPokemon});
+  const AtStopState({
+    required this.stopName,
+    required this.wildPokemon,
+  });
 
   @override
-  List<Object> get props => [pokelist, stopName, wildPokemon];
+  List<Object> get props => [stopName, wildPokemon];
 }
 
 class AtStopInitialState extends AtStopState {
-  const AtStopInitialState(
-      {required super.pokelist,
-      required super.stopName,
-      required super.wildPokemon});
+  const AtStopInitialState({
+    required super.stopName,
+    required super.wildPokemon,
+  });
 }
 
 class ChoosingPokemon extends AtStopState {
-  const ChoosingPokemon(
-      {required super.pokelist,
-      required super.stopName,
-      required super.wildPokemon});
+  const ChoosingPokemon({
+    required super.stopName,
+    required super.wildPokemon,
+  });
 }
 
 class FightFinished extends AtStopState {
@@ -33,15 +32,15 @@ class FightFinished extends AtStopState {
   final Pokemon chosenPokemon;
   final int xpWon;
 
-  const FightFinished(
-      {required super.pokelist,
-      required super.stopName,
-      required super.wildPokemon,
-      required this.chosenPokemon,
-      required this.winner,
-      required this.xpWon});
+  const FightFinished({
+    required super.stopName,
+    required super.wildPokemon,
+    required this.chosenPokemon,
+    required this.winner,
+    required this.xpWon,
+  });
 
   @override
   List<Object> get props =>
-      [pokelist, stopName, wildPokemon, chosenPokemon, winner, xpWon];
+      [stopName, wildPokemon, chosenPokemon, winner, xpWon];
 }

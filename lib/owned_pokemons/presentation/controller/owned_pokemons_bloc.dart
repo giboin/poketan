@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../../../pokemon_at_stop/domain/pokemon.dart';
@@ -9,11 +10,9 @@ part 'owned_pokemons_state.dart';
 class OwnedPokemonsBloc
     extends HydratedBloc<OwnedPokemonsEvent, OwnedPokemonsState> {
   OwnedPokemonsBloc()
-      : super(const OwnedPokemonsInitial(pokeList: [], pokeTeam: [])) {
-    on<OwnedPokemonsEvent>((event, emit) {
-      // TODO: implement event handler
-    });
- 
+      : super(
+          OwnedPokemonsInitial(pokeList: List.empty(), pokeTeam: List.empty()),
+        ) {
     on<PokemonChanged>((event, emit) {
       List<Pokemon> newPokelist = state.pokeList.map<Pokemon>((e) {
         if (e.pokedexId == event.pokemon.pokedexId) {
@@ -42,26 +41,37 @@ class OwnedPokemonsBloc
         newPokelist.add(event.pokemon);
         //TODO c'est ça qui bug
       }
-      emit(PokemonUpdated(pokeList: newPokelist, pokeTeam: state.pokeTeam));
+      emit(PokemonUpdated(
+          pokeList: newPokelist, pokeTeam: List.from(state.pokeTeam)));
     });
 
     on<NewTeam>((event, emit) {
-      emit(PokemonUpdated(pokeList: state.pokeList, pokeTeam: event.newTeam));
+      emit(PokemonUpdated(
+        pokeList: List.from(state.pokeList),
+        pokeTeam: event.newTeam,
+      ));
     });
   }
 
-   
-
   @override
   OwnedPokemonsState? fromJson(Map<String, dynamic> json) {
+    print('hello from Fromjson\n$json');
     return OwnedPokemonsInitial(
-        pokeList: json['pokelist'], pokeTeam: json['poketeam']);
+      pokeList: (json['pokelist'] as List<Map<String, dynamic>>)
+          .map((p) => PokemonAdapter.fromJson(json: p))
+          .toList(),
+      pokeTeam: (json['poketeam'] as List<Map<String, dynamic>>)
+          .map((p) => PokemonAdapter.fromJson(json: p))
+          .toList(),
+    );
   }
 
   @override
   Map<String, dynamic>? toJson(OwnedPokemonsState state) {
-    state.pokeList.addAll([]);
-
-    return {'pokelist': state.pokeList, 'poketeam': state.pokeTeam};
+    print('hello from toJson\n${state.pokeList}\n${state.pokeTeam}');
+    return {
+      'pokelist': state.pokeList.map((p) => p.toJson()).toList(),
+      'poketeam': state.pokeTeam.map((p) => p.toJson()).toList(),
+    };
   }
 }

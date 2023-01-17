@@ -1,32 +1,44 @@
 part of 'at_stop_bloc.dart';
 
 abstract class AtStopEvent extends Equatable {
-  const AtStopEvent();
+  final List<Pokemon> pokelist;
+
+  const AtStopEvent({
+    required this.pokelist,
+  });
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [pokelist];
 }
 
 class PokemonChosen extends AtStopEvent {
   final Pokemon pokemon;
 
-  const PokemonChosen({required this.pokemon});
+  const PokemonChosen({
+    required this.pokemon,
+    required super.pokelist,
+  });
 
   @override
-  List<Object> get props => [pokemon];
+  List<Object> get props => [pokemon, pokelist];
 }
 
 class ChoosePokemon extends AtStopEvent {
-  const ChoosePokemon();
+  const ChoosePokemon({
+    required super.pokelist,
+  });
 }
 
 class GoToAtStopBlocInitial extends AtStopEvent {
   final Pokemon wildPokemon;
   final String stopName;
-  final List<Pokemon> pokelist;
 
-  const GoToAtStopBlocInitial(
-      {required this.pokelist,
-      required this.wildPokemon,
-      required this.stopName});
+  const GoToAtStopBlocInitial({
+    required super.pokelist,
+    required this.wildPokemon,
+    required this.stopName,
+  });
+
+  @override
+  List<Object> get props => [wildPokemon, stopName, pokelist];
 }

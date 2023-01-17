@@ -12,24 +12,25 @@ part 'at_stop_state.dart';
 class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
   final String serverUrl = "https://hackathon-server.osc-fr1.scalingo.io/";
 
-  AtStopBloc(
-      {required String stopName,
-      required Pokemon wildPokemon,
-      required List<Pokemon> pokelist})
-      : super(AtStopInitialState(
-            stopName: stopName, wildPokemon: wildPokemon, pokelist: pokelist)) {
+  AtStopBloc({
+    required String stopName,
+    required Pokemon wildPokemon,
+  }) : super(AtStopInitialState(
+          stopName: stopName,
+          wildPokemon: wildPokemon,
+        )) {
     on<ChoosePokemon>((event, emit) {
       emit(ChoosingPokemon(
-          pokelist: state.pokelist,
-          stopName: state.stopName,
-          wildPokemon: state.wildPokemon));
+        stopName: state.stopName,
+        wildPokemon: state.wildPokemon,
+      ));
     });
 
     on<GoToAtStopBlocInitial>((event, emit) {
       emit(AtStopInitialState(
-          pokelist: event.pokelist,
-          stopName: event.stopName,
-          wildPokemon: event.wildPokemon));
+        stopName: event.stopName,
+        wildPokemon: event.wildPokemon,
+      ));
     });
 
     on<PokemonChosen>((event, emit) async {
@@ -55,7 +56,7 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
           pictureUrl: event.pokemon.pictureUrl,
           xp: json["new_xp"],
           pokedexId: event.pokemon.pokedexId);
-      List<Pokemon> newPokelist = pokelist.map<Pokemon>((e) {
+      List<Pokemon> newPokelist = event.pokelist.map<Pokemon>((e) {
         if (e.name == event.pokemon.name) {
           return event.pokemon;
         } else {
@@ -63,12 +64,12 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
         }
       }).toList();
       emit(FightFinished(
-          pokelist: newPokelist,
-          stopName: state.stopName,
-          wildPokemon: state.wildPokemon,
-          chosenPokemon: updatedPokemon,
-          winner: winnerBool,
-          xpWon: json["xp_earned"]));
+        stopName: state.stopName,
+        wildPokemon: state.wildPokemon,
+        chosenPokemon: updatedPokemon,
+        winner: winnerBool,
+        xpWon: json["xp_earned"],
+      ));
     });
   }
 }
