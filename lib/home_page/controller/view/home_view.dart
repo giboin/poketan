@@ -6,13 +6,20 @@ import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 import 'package:hackathon/widgets/pokeball_widget.dart';
 
+/// The view of the home page
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // BlocConsumer is a widget that allows to listen to the state of the bloc
+    // and to build the widget according to the state
     return BlocConsumer<HomeBloc, HomeState>(
+      // The listener is called when the state changes
+      // It is used to push a new view on the widget tree
+      // It is called only when the state changes
       listener: (context, state) {
+        // If the state is HomeInitial, tell the AtStopBloc to go to its initial state
         if (state is HomeInitial) {
           Map<String, dynamic> json = state.responseJson ??
               {
@@ -32,9 +39,13 @@ class HomeView extends StatelessWidget {
               stopName: json["stop_name"].toString()));
         }
       },
+      // The builder method builds the widget according
+      // to the state it is in
       builder: (context, state) {
+        // If the state is HomeInitial (it should aways be), display the home page
         if (state is HomeInitial) {
           return Scaffold(
+            // This floating action button is the backpack button
             floatingActionButton: SizedBox(
               height: 80,
               width: 80,
@@ -42,13 +53,16 @@ class HomeView extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 child: Image.asset("assets/backpack.png"),
                 onPressed: () {
-                  // TODO: Changer ça avec BLoC (add un event, push un state, push la navigationa avec le listener)
+                  // TODO: Changer ça avec BLoC (add un event, push un state, push la navigation avec le listener)
+                  // Push the owned pokemons page onto the widget tree
                   Navigator.of(context).pushNamed('owned_pokemons');
                 },
               ),
             ),
+            // The body of the home page
             body: Container(
               decoration: const BoxDecoration(
+                // The background image of the home page (Nantes traffic map)
                 image: DecorationImage(
                   image: AssetImage("assets/nantes_map_background.png"),
                   fit: BoxFit.cover,
@@ -57,10 +71,13 @@ class HomeView extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   if (state.nearAStop) {
+                    // TODO: Changer ça avec BLoC (add un event, push un state, push la navigation avec le listener)
+                    // Push the pokemon at stop page onto the widget tree
                     Navigator.of(context).pushNamed('pokemon_at_stop');
                     // context.read<HomeBloc>().add(FindPokemon());
                   }
                 },
+                // The pokeball widget
                 child: PokeballWidget(
                   isColored: state.nearAStop,
                 ),
@@ -69,7 +86,7 @@ class HomeView extends StatelessWidget {
           );
         } else {
           // TODO: à la place de ça qui bloque l'appli, on devrait ajouter un event pour retourner sur l'état initial.
-          return const Text("Loading");
+          return Text("${state.runtimeType}");
         }
       },
     );

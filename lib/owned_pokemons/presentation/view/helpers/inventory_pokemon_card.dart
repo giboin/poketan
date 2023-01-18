@@ -3,18 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 
+// TODO: change this to a stateless widget and use a bloc consumer instead
+/// The widget that displays a pokemon in the inventory
 class InventoryPokemonCard extends StatefulWidget {
   const InventoryPokemonCard({
     Key? key,
     required this.pokemon,
   }) : super(key: key);
 
+  /// The pokemon to display
   final Pokemon pokemon;
 
   @override
   State<InventoryPokemonCard> createState() => _InventoryPokemonCardState();
 }
 
+/// The state of the [InventoryPokemonCard] widget
 class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
   @override
   Widget build(BuildContext context) {
@@ -49,17 +53,22 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
                     if (isInTeam && state.pokeTeam.length > 1) {
                       newTeam.removeWhere((element) =>
                           element.pokedexId == widget.pokemon.pokedexId);
+                      // TODO: change this with a state of bloc
+                      // or in the constructor of this stalesless widget
                       setState(() {
                         isInTeam = false;
                       });
+                      // notify the bloc that the team has changed
                       context
                           .read<OwnedPokemonsBloc>()
                           .add(NewTeam(newTeam: newTeam));
                     } else if (!isInTeam && newTeam.length < 6) {
                       newTeam.add(widget.pokemon);
+                      // TODO: same as above
                       setState(() {
                         isInTeam = true;
                       });
+                      // notify the bloc that the team has changed
                       context
                           .read<OwnedPokemonsBloc>()
                           .add(NewTeam(newTeam: newTeam));
