@@ -34,6 +34,10 @@ class AtStopBloc extends Bloc<AtStopEvent, AtStopState> {
     });
 
     on<PokemonChosen>((event, emit) async {
+      print("PokemonChosen");
+      print('event.pokemon: ${event.pokemon}');
+      print('state.wildPokemon: ${state.wildPokemon}');
+      print('poketeam: ${event.pokelist}');
       Map<String, dynamic> body = {
         'owned_pokemon': event.pokemon.toMap(),
         'wild_pokemon': wildPokemon.toMap(),

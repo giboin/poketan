@@ -19,9 +19,11 @@ import 'owned_pokemons/presentation/view/owned_pokemons_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  String temporaryPath = (await getTemporaryDirectory()).absolute.path;
+  String appStorageDirectory =
+      (await getApplicationDocumentsDirectory()).absolute.path;
   HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: Directory("$temporaryPath/hydrated_bloc_storage"));
+      storageDirectory:
+          Directory("$appStorageDirectory/hydrated_bloc_storage"));
   runApp(const MaterialApp(
     home: MyApp(),
   ));
@@ -135,7 +137,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<HomeBloc>(create: ((context) => HomeBloc())),
           BlocProvider<OwnedPokemonsBloc>(
-              lazy: false, create: ((context) => OwnedPokemonsBloc())),
+              lazy: true, create: ((context) => OwnedPokemonsBloc())),
           BlocProvider<AtStopBloc>(create: (context) {
             Map<String, dynamic> json =
                 context.read<HomeBloc>().state.responseJson ??

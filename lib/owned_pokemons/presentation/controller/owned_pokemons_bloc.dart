@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
@@ -11,6 +13,10 @@ part 'owned_pokemons_state.dart';
 class OwnedPokemonsBloc
     extends HydratedBloc<OwnedPokemonsEvent, OwnedPokemonsState>
     with EquatableMixin {
+  // TODO: VERY VERY VERY VERY BAD (mais j'espère que ça marche)
+  List<Pokemon>? pokeList;
+  List<Pokemon>? pokeTeam;
+
   OwnedPokemonsBloc()
       : super(
           const OwnedPokemonsChooseStarter(),
@@ -58,7 +64,12 @@ class OwnedPokemonsBloc
       if (!pokedexIds.contains(event.pokemon.pokedexId)) {
         pokeList.add(event.pokemon);
       }
-      emit(PokemonUpdated(pokeList: pokeList, pokeTeam: List.from(pokeTeam)));
+
+      print('pokeList: $pokeList');
+      print('pokeTeam: $pokeTeam');
+
+      emit(PokemonUpdated(
+          pokeList: List.from(pokeList), pokeTeam: List.from(pokeTeam)));
     });
 
     on<NewTeam>((event, emit) {
@@ -69,30 +80,35 @@ class OwnedPokemonsBloc
           (state is PokemonUpdated) ? (state as PokemonUpdated).pokeList : [];
       emit(PokemonUpdated(
         pokeList: List.from(pokeList),
-        pokeTeam: event.newTeam,
+        pokeTeam: List.from(event.newTeam),
       ));
     });
   }
 
   @override
   OwnedPokemonsState? fromJson(Map<String, dynamic> json) {
-    return PokemonUpdated(
-      pokeList: (json['pokelist'] as List<Map<String, dynamic>>)
-          .map((p) => PokemonAdapter.fromJson(json: p))
-          .toList(),
-      pokeTeam: (json['poketeam'] as List<Map<String, dynamic>>)
-          .map((p) => PokemonAdapter.fromJson(json: p))
-          .toList(),
+    final List<dynamic> jsonPokelist = json['pokelist'] as List<dynamic>;
+    final List<dynamic> jsonPoketeam = json['poketeam'] as List<dynamic>;
+
+    PokemonUpdated state = PokemonUpdated(
+      pokeList:
+          jsonPokelist.map((p) => PokemonAdapter.fromJson(json: p)).toList(),
+      pokeTeam:
+          jsonPoketeam.map((p) => PokemonAdapter.fromJson(json: p)).toList(),
     );
+
+    print('fromJson: $state');
+    return state;
   }
 
   @override
   Map<String, dynamic>? toJson(OwnedPokemonsState state) {
     if (state is PokemonUpdated) {
       Map<String, dynamic> json = {
-        'pokelist': state.pokeList.map((p) => p.toJson()).toList(),
-        'poketeam': state.pokeTeam.map((p) => p.toJson()).toList(),
+        'pokelist': state.pokeList.map((p) => p.toMap()).toList(),
+        'poketeam': state.pokeTeam.map((p) => p.toMap()).toList(),
       };
+      print('toJson: $json');
       return json;
     } else {
       return null;

@@ -15,7 +15,12 @@ class PokemonUpdated extends OwnedPokemonsState {
   final List<Pokemon> pokeList;
   final List<Pokemon> pokeTeam;
 
-  const PokemonUpdated({required this.pokeList, required this.pokeTeam});
+  const PokemonUpdated({
+    required this.pokeList,
+    required this.pokeTeam,
+  });
+
+  // TODO: PTDR
   @override
-  List<Object> get props => [pokeList, pokeTeam];
+  List<Object> get props => [pokeList, pokeTeam, Random().nextInt(100000)];
 }

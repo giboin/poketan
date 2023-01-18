@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
 
-class Pokemon {
+import 'package:equatable/equatable.dart';
+
+class Pokemon with EquatableMixin {
   String name;
   String pictureUrl;
   int level;
@@ -28,7 +30,7 @@ class Pokemon {
       'name': name,
       'level': level,
       'xp': xp,
-      'picture_url': pictureUrl,
+      'sprite_url': pictureUrl,
       'pokedex_id': pokedexId,
     };
   }
@@ -41,4 +43,7 @@ class Pokemon {
   String toString() {
     return "$pokedexId: $name niveau $level";
   }
+
+  @override
+  List<Object?> get props => [name, level, xp, pictureUrl, pokedexId];
 }

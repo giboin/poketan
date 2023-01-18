@@ -6,9 +6,23 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
+import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    expect(find.text('aefjbskdvbksd'), findsNothing);
-  });
+  testWidgets(
+    'OwnedPokemonBloc fromJson and toJson',
+    (widgetTester) async {
+      final pokemon = Pokemon(
+        name: "Pikachu",
+        pokedexId: 25,
+        pictureUrl:
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+        level: 5,
+      );
+      final json = pokemon.toMap();
+      final pokemon2 = PokemonAdapter.fromJson(json: json);
+      expect(pokemon2, pokemon);
+    },
+  );
 }
