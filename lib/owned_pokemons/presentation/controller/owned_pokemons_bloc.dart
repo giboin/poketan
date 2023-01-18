@@ -13,10 +13,6 @@ part 'owned_pokemons_state.dart';
 class OwnedPokemonsBloc
     extends HydratedBloc<OwnedPokemonsEvent, OwnedPokemonsState>
     with EquatableMixin {
-  // TODO: VERY VERY VERY VERY BAD (mais j'espère que ça marche)
-  List<Pokemon>? pokeList;
-  List<Pokemon>? pokeTeam;
-
   OwnedPokemonsBloc()
       : super(
           const OwnedPokemonsChooseStarter(),
@@ -65,9 +61,6 @@ class OwnedPokemonsBloc
         pokeList.add(event.pokemon);
       }
 
-      print('pokeList: $pokeList');
-      print('pokeTeam: $pokeTeam');
-
       emit(PokemonUpdated(
           pokeList: List.from(pokeList), pokeTeam: List.from(pokeTeam)));
     });
@@ -96,8 +89,6 @@ class OwnedPokemonsBloc
       pokeTeam:
           jsonPoketeam.map((p) => PokemonAdapter.fromJson(json: p)).toList(),
     );
-
-    print('fromJson: $state');
     return state;
   }
 
@@ -108,7 +99,6 @@ class OwnedPokemonsBloc
         'pokelist': state.pokeList.map((p) => p.toMap()).toList(),
         'poketeam': state.pokeTeam.map((p) => p.toMap()).toList(),
       };
-      print('toJson: $json');
       return json;
     } else {
       return null;
