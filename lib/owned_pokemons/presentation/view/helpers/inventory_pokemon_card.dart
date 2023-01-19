@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
@@ -41,8 +43,15 @@ class _InventoryPokemonCardState extends State<InventoryPokemonCard> {
                     child: Column(
                       children: [
                         Image.network(widget.pokemon.pictureUrl),
-                        Text(
-                            "${widget.pokemon.name} niveau ${widget.pokemon.level}")
+                        Text("${widget.pokemon.name} niveau ${widget.pokemon.level}"),
+                        Padding(
+                          padding: const EdgeInsets.only(top:5.0, left:8.0, right: 8.0),
+                          child: LinearProgressIndicator(
+                            value:(widget.pokemon.xp-(pow(widget.pokemon.level, 3)))/(pow(widget.pokemon.level+1, 3)-pow(widget.pokemon.level,3)),
+                            backgroundColor: Colors.grey, 
+                            color: Colors.blueAccent,
+                            ),
+                        )
                       ],
                     ),
                   ),

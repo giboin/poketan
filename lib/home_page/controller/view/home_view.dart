@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
@@ -60,28 +61,46 @@ class HomeView extends StatelessWidget {
               ),
             ),
             // The body of the home page
-            body: Container(
-              decoration: const BoxDecoration(
-                // The background image of the home page (Nantes traffic map)
-                image: DecorationImage(
-                  image: AssetImage("assets/nantes_map_background.png"),
-                  fit: BoxFit.cover,
+            body: Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    // The background image of the home page (Nantes traffic map)
+                    image: DecorationImage(
+                      image: AssetImage("assets/nantes_map_background.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (state.nearAStop) {
+                        // TODO: Changer ça avec BLoC (add un event, push un state, push la navigation avec le listener)
+                        // Push the pokemon at stop page onto the widget tree
+                        Navigator.of(context).pushNamed('pokemon_at_stop');
+                        // context.read<HomeBloc>().add(FindPokemon());
+                      }
+                    },
+                    // The pokeball widget
+                    child: PokeballWidget(
+                      isColored: state.nearAStop,
+                    ),
+                  ),
                 ),
-              ),
-              child: GestureDetector(
-                onTap: () {
-                  if (state.nearAStop) {
-                    // TODO: Changer ça avec BLoC (add un event, push un state, push la navigation avec le listener)
-                    // Push the pokemon at stop page onto the widget tree
-                    Navigator.of(context).pushNamed('pokemon_at_stop');
-                    // context.read<HomeBloc>().add(FindPokemon());
-                  }
-                },
-                // The pokeball widget
-                child: PokeballWidget(
-                  isColored: state.nearAStop,
-                ),
-              ),
+                Visibility(
+                  visible: kDebugMode,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "dev_options");
+                    },
+                    child:const Icon(Icons.logo_dev_sharp)
+                    ),
+                  ),
+                )
+              ],
+              
             ),
           );
         } else {

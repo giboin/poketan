@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:hackathon/dev_options.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
@@ -166,6 +167,7 @@ class MyApp extends StatelessWidget {
             '/': (context) => const HomeView(),
             'pokemon_at_stop': (context) => const PokemonsAtStopView(),
             'owned_pokemons': (context) => OwnedPokemons(),
+            'dev_options':(context)=>const DevOptions()
           },
         ));
   }

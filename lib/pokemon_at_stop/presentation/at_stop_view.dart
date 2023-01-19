@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
-import 'package:hackathon/screen/fight_result.dart';
-import 'package:hackathon/screen/pokemon_to_fight.dart';
+import 'package:hackathon/pokemon_at_stop/presentation/screen/fight_result.dart';
+import 'package:hackathon/pokemon_at_stop/presentation/screen/pokemon_to_fight.dart';
 
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 

@@ -42,13 +42,8 @@ class FightResultScreen extends StatelessWidget {
                               stopName: state.stopName,
                             ));
                         context.read<HomeBloc>().add(GoToHomeBlocInitial());
-                        // Navigator.pushNamed(context, '/');
                         Navigator.popUntil(context,
                             (route) => ModalRoute.withName('/')(route));
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const HomeView()));
                       },
                       icon: const Icon(
                         Icons.home,
