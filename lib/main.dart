@@ -10,6 +10,7 @@ import 'package:hackathon/dev_options.dart';
 import 'package:hackathon/home_page/controller/bloc/home_bloc.dart';
 import 'package:hackathon/home_page/controller/view/home_view.dart';
 import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_bloc.dart';
+import 'package:hackathon/owned_pokemons/presentation/view/helpers/pokemon_details.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon_adapter.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/at_stop_view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -180,7 +181,7 @@ class MyApp extends StatelessWidget {
             '/': (context) => const HomeView(),
             'pokemon_at_stop': (context) => const PokemonsAtStopView(),
             'owned_pokemons': (context) => OwnedPokemons(),
-            'dev_options':(context)=>const DevOptions()
+            'dev_options':(context)=>const DevOptions(),
           },
         ));
   }

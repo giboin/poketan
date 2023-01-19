@@ -112,12 +112,10 @@ class OwnedPokemonsBloc
 
     // build the state of the bloc from the json file
     PokemonUpdated state = PokemonUpdated(
-      pokeList: jsonPokelist
-          .map((p) => PokemonAdapter.fromJsonWithXp(json: p))
-          .toList(),
-      pokeTeam: jsonPoketeam
-          .map((p) => PokemonAdapter.fromJsonWithXp(json: p))
-          .toList(),
+      pokeList:
+          jsonPokelist.map((p) => PokemonAdapter.fromJson(json: p)).toList(),
+      pokeTeam:
+          jsonPoketeam.map((p) => PokemonAdapter.fromJson(json: p)).toList(),
     );
     return state;
   }
