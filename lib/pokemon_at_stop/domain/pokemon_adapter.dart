@@ -21,7 +21,7 @@ class PokemonAdapter {
     return Pokemon.withXp(
         name: json["name"] ?? "Bulbazar",
         level: json["level"] ?? 5,
-        xp: json["xp"]??0,
+        xp: json["xp"] ?? 0,
         pictureUrl: json["sprite_url"] ??
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
         pokedexId: json["pokedex_id"] ?? 5);
