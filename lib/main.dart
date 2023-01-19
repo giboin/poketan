@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
@@ -26,6 +27,7 @@ Future<void> main() async {
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory:
           Directory("$appStorageDirectory/hydrated_bloc_storage"));
+          //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   runApp(const MaterialApp(
     home: MyApp(),
   ));

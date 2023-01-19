@@ -102,7 +102,7 @@ class OwnedPokemons extends StatelessWidget {
                   padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
                   child: Text(
                     "Mes Pokemouns",
-                    style: TextStyle(fontSize: 30, color: Colors.black),
+                    style: TextStyle(fontSize: 30, color: Colors.white),
                   ),
                 ),
                 Expanded(

@@ -9,7 +9,6 @@ import 'package:hackathon/pokemon_at_stop/presentation/screen/pokemon_to_fight.d
 
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
-/// A view that displays the pokemons at a stop
 class PokemonsAtStopView extends StatelessWidget {
   const PokemonsAtStopView({
     super.key,
@@ -17,11 +16,8 @@ class PokemonsAtStopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // The state of the [OwnedPokemonsBloc] representing the list of owned pokemons
-    // and the current team
     OwnedPokemonsState state = context.read<OwnedPokemonsBloc>().state;
 
-    // The list of owned pokemons
     List<Pokemon> pokeList = (state is PokemonUpdated) ? state.pokeList : [];
 
     return BlocConsumer<AtStopBloc, AtStopState>(listener: (context, state) {
@@ -46,27 +42,24 @@ class PokemonsAtStopView extends StatelessWidget {
                   stopName: state.stopName,
                   wildPokemon: state.wildPokemon,
                 ));
-            // TODO: change this with a bloc event
             Navigator.pop(context);
             return false;
           },
           child: Scaffold(
-            appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(20.0),
-                child: AppBar(
-                  primary: false,
-                  title: Text(
-                    state.stopName,
-                    style: const TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.white,
-                    ),
-                  ),
-                  centerTitle: true,
-                  backgroundColor: Colors.green,
-                )),
+            appBar: AppBar(
+              //primary: false,
+              title: Text(
+                state.stopName,
+                style: const TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                ),
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.green,
+            ),
             body: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
