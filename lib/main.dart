@@ -18,6 +18,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'owned_pokemons/presentation/view/owned_pokemons_view.dart';
 
+/// The entry point of the app
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   String appStorageDirectory =
@@ -30,8 +31,10 @@ Future<void> main() async {
   ));
 }
 
+/// Some google sign in stuff
 final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
+/// Some google sign in stuff
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -39,6 +42,7 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+/// Some google sign in stuff
 class _LoginState extends State<Login> {
   GoogleSignInAccount? _currentUser;
 
@@ -64,6 +68,7 @@ class _LoginState extends State<Login> {
     );
   }
 
+  /// Some google sign in stuff
   AppBar _buildAppBar() {
     GoogleSignInAccount? user = _currentUser;
     if (user != null) {
@@ -84,6 +89,7 @@ class _LoginState extends State<Login> {
     }
   }
 
+  /// Some google sign in stuff
   Widget _buildWidget() {
     GoogleSignInAccount? user = _currentUser;
     if (user != null) {
@@ -114,10 +120,12 @@ class _LoginState extends State<Login> {
     }
   }
 
+  /// Some google sign in stuff
   void signOut() {
     _googleSignIn.disconnect();
   }
 
+  /// Some google sign in stuff
   Future<void> signIn() async {
     try {
       await _googleSignIn.signIn();
@@ -129,11 +137,13 @@ class _LoginState extends State<Login> {
   }
 }
 
+/// The main app
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // The MultiBlocProvider is used to provide multiple blocs to the app
     return MultiBlocProvider(
         providers: [
           BlocProvider<HomeBloc>(create: ((context) => HomeBloc())),
@@ -163,6 +173,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
+          // The routes are used to navigate between the different views
           routes: {
             '/': (context) => const HomeView(),
             'pokemon_at_stop': (context) => const PokemonsAtStopView(),

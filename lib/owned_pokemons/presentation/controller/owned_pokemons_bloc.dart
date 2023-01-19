@@ -45,7 +45,7 @@ class OwnedPokemonsBloc
 
       // get the old list of pokemons in the team
       List<Pokemon> pokeTeam =
-          (state is PokemonUpdated) ? (state as PokemonUpdated).pokeList : [];
+          (state is PokemonUpdated) ? (state as PokemonUpdated).pokeTeam : [];
 
       // update the pokemon in the team
       List<Pokemon> newPoketeam = pokeTeam.map<Pokemon>((e) {

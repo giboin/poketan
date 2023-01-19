@@ -5,9 +5,15 @@ import 'package:hackathon/owned_pokemons/presentation/controller/owned_pokemons_
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
+/// A view that displays the fight result
 class FightResultScreen extends StatelessWidget {
+  /// The user's pokemon
   final Pokemon pokemon;
+
+  /// True if the user won the fight
   final bool hasWin;
+
+  /// The xp earned by the user
   final int xpEarned;
 
   const FightResultScreen(

@@ -8,7 +8,10 @@ class PickStarterButton extends StatelessWidget {
   /// The pokemon that the user can pick
   final Pokemon pokemon;
 
-  const PickStarterButton({Key? key, required this.pokemon}) : super(key: key);
+  const PickStarterButton({
+    Key? key,
+    required this.pokemon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

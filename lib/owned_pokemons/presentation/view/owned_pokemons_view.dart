@@ -5,9 +5,13 @@ import 'package:hackathon/owned_pokemons/presentation/view/helpers/inventory_pok
 import 'package:hackathon/owned_pokemons/presentation/view/helpers/pick_starter_button.dart';
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 
+/// The view that displays the owned pokemons
+/// and the poketeam
 class OwnedPokemons extends StatelessWidget {
   OwnedPokemons({super.key});
 
+  /// The list of the 3 starter pokemons
+  /// TODO: move this to a repository
   final List<Pokemon> starters = [
     Pokemon(
         name: "Bulbizarre",
@@ -31,10 +35,11 @@ class OwnedPokemons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //List<Pokemon> myTeam = context.read<OwnedPokemonsBloc>().state.pokeTeam;
-
+    // listen to the state of the bloc and build the view accordingly
     return BlocBuilder<OwnedPokemonsBloc, OwnedPokemonsState>(
         builder: (context, state) {
+      // if the state is OwnedPokemonsInitial, we display the
+      // list of starters that the user can choose from
       if (state is OwnedPokemonsChooseStarter) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
@@ -59,6 +64,7 @@ class OwnedPokemons extends StatelessWidget {
                     ),
                   ),
                   Expanded(
+                    // display the list of starters
                     child: ListView.builder(
                         itemCount: starters.length,
                         itemBuilder: (ctx, int index) {
@@ -71,7 +77,13 @@ class OwnedPokemons extends StatelessWidget {
           ),
         );
       }
-      if (state is PokemonUpdated) {
+      // if the state is PokemonUpdated, we display the list of owned pokemons
+      else if (state is PokemonUpdated) {
+        List<Pokemon> pokeTeam = state.pokeTeam;
+        List<Pokemon> pokeList = List.from(state.pokeList)
+          ..sort((a, b) =>
+              (pokeTeam.contains(b) ? 1 : 0) - (pokeTeam.contains(a) ? 1 : 0));
+
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () => Navigator.pop(context),
@@ -94,6 +106,7 @@ class OwnedPokemons extends StatelessWidget {
                   ),
                 ),
                 Expanded(
+                  // display the list of owned pokemons
                   child: GridView.builder(
                       itemCount: state.pokeList.length,
                       gridDelegate:
@@ -101,8 +114,7 @@ class OwnedPokemons extends StatelessWidget {
                         crossAxisCount: 2,
                       ),
                       itemBuilder: (ctx, int index) {
-                        return InventoryPokemonCard(
-                            pokemon: state.pokeList[index]);
+                        return InventoryPokemonCard(pokemon: pokeList[index]);
                       }),
                 ),
               ]),
@@ -110,6 +122,9 @@ class OwnedPokemons extends StatelessWidget {
           ),
         );
       } else {
+        // should never happen, but just in case
+        // and also to avoid a warning
+        // TODO: replace if / else if by a switch
         return Text("${state.runtimeType}");
       }
     });

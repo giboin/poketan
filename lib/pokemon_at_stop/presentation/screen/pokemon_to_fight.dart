@@ -5,7 +5,10 @@ import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.d
 
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 
+/// The view that displays the wild pokemon at a stop
 class FightDialog extends StatelessWidget {
+  // qui a fait ça mdr
+  // TODO: change this with a bloc consumer
   final AtStopState atStopState;
 
   const FightDialog({Key? key, required this.atStopState}) : super(key: key);
