@@ -121,7 +121,7 @@ class OwnedPokemonsBloc
   }
 
   /// This method is called when the state of the bloc is updated
-  /// It loads the state of the bloc from the json file
+  /// It loads the state of the bloc to the json file
   @override
   Map<String, dynamic>? toJson(OwnedPokemonsState state) {
     // if the state is PokemonUpdated, save the list of owned pokemons
