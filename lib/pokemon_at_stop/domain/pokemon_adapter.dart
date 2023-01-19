@@ -1,6 +1,9 @@
 import 'package:hackathon/pokemon_at_stop/domain/pokemon.dart';
 
+/// A class that adapts the json to a [Pokemon] object
+/// It helps to parse the json from the server's API
 class PokemonAdapter {
+  /// Create a [Pokemon] object from a json
   static Pokemon fromJson({
     required Map<String, dynamic> json,
   }) {
@@ -11,4 +14,6 @@ class PokemonAdapter {
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
         pokedexId: json["pokedex_id"] ?? 5);
   }
+
+  // TODO: move the toJson method of the Pokemon class here
 }

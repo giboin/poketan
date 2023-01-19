@@ -9,6 +9,7 @@ import 'package:hackathon/screen/pokemon_to_fight.dart';
 
 import 'package:hackathon/pokemon_at_stop/presentation/controller/at_stop_bloc.dart';
 
+/// A view that displays the pokemons at a stop
 class PokemonsAtStopView extends StatelessWidget {
   const PokemonsAtStopView({
     super.key,
@@ -16,8 +17,11 @@ class PokemonsAtStopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The state of the [OwnedPokemonsBloc] representing the list of owned pokemons
+    // and the current team
     OwnedPokemonsState state = context.read<OwnedPokemonsBloc>().state;
 
+    // The list of owned pokemons
     List<Pokemon> pokeList = (state is PokemonUpdated) ? state.pokeList : [];
 
     return BlocConsumer<AtStopBloc, AtStopState>(listener: (context, state) {
@@ -42,6 +46,7 @@ class PokemonsAtStopView extends StatelessWidget {
                   stopName: state.stopName,
                   wildPokemon: state.wildPokemon,
                 ));
+            // TODO: change this with a bloc event
             Navigator.pop(context);
             return false;
           },
