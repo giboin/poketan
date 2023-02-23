@@ -1,16 +1,11 @@
-# hackathon
+# Poketan
 
-A new Flutter project.
+A little game based on Pokemons and public transports in the city of Nantes. 
 
-## Getting Started
+## How to play?
 
-This project is a starting point for a Flutter application.
+When you come near a bus or tramway stop in Nantes, you can fight a new wild Pokemon and capture it. There is 3 different pokemon to capture per stop (with different rarity), and each time you win a fight your pokemon becomes stronger. 
 
-A few resources to get you started if this is your first Flutter project:
+## Edit
+Right now the server is probably down so it won't work even if you're in Nantes...
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

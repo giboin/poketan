@@ -12,6 +12,7 @@ class DevOptions extends StatefulWidget {
 }
 
 class _DevOptionsState extends State<DevOptions> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,7 @@ class _DevOptionsState extends State<DevOptions> {
                   onPressed: () {
                     context.read<OwnedPokemonsBloc>().add(NewPokemon(
                       pokemon: Pokemon(
-                        name: "Magicarpe",
+                        name: "Magicrap",
                         level: 1, 
                         pictureUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/129.png",
                         pokedexId: 129,

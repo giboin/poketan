@@ -15,6 +15,7 @@ class PokemonAdapter {
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
         pokedexId: json["pokedex_id"] ?? 5);
   }
+  
 
   static Pokemon fromJsonWithoutXp({
     required Map<String, dynamic> json,
