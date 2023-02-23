@@ -1,6 +1,6 @@
 # Poketan
 
-A little game based on Pokemons and public transports in the city of Nantes. 
+A little game based on Pokemons and public transports in the city of Nantes. It was made at 4 students in about 6 days
 
 ## How to play?
 
